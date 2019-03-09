@@ -1,0 +1,5 @@
+//Profile Types
+export const PROFILE_SUCCESS = "PROFILE_SUCCESS";
+export const PROFILE_LOADING = "PROFILE_LOADING";
+export const PROFILE_LOGOUT = "PROFILE_LOGOUT";
+export const PROFILE_ERROR = "PROFILE_ERROR";
