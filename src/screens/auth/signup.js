@@ -33,10 +33,11 @@ class signup extends PureComponent {
   }
 }
 
-export default connect(
-  {},
-  {}
-)(signup);
+// export default connect(
+//   {},
+//   {}
+// )(signup);
+export default signup
 
 const styles = StyleSheet.create({
   container: {

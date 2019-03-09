@@ -3,11 +3,13 @@ import { Image, Text, TextInput, View, Button, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import logo from "./../../assests/images/logo.png";
 
+
 class Login extends PureComponent {
   constructor() {
     super();
   }
   render() {
+    console.log(this.props.navigation.navigate)
     return (
       <View>
         <Image style={styles.logo} source={logo} />
@@ -33,7 +35,7 @@ class Login extends PureComponent {
           <Button
             color="white"
             title="Don't have an account? Sign Up"
-            onPress={() => this.props.navigation.navigate("Signup")}
+            onPress={() => this.props.navigation.navigate("signup")}
           />
         </View>
       </View>
@@ -41,10 +43,12 @@ class Login extends PureComponent {
   }
 }
 
-export default connect(
-  {},
-  {}
-)(Login);
+// export default connect(
+//   {},
+//   {}
+// )(Login);
+
+export default Login
 
 const styles = StyleSheet.create({
   container: {

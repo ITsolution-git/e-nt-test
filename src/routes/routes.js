@@ -1,7 +1,7 @@
-import { createSwitchNavigator, createStackNavigator } from "react-navigation";
+import { createSwitchNavigator, createStackNavigator, createAppContainer } from "react-navigation";
 import { loginNavigation } from "./login";
 
-export const allRoutes = createSwitchNavigator(
+ const allRoutes = createSwitchNavigator(
   {
     home: {
       screen: loginNavigation
@@ -11,3 +11,8 @@ export const allRoutes = createSwitchNavigator(
     initialRouteName: "home"
   }
 );
+
+const App = createAppContainer(allRoutes);
+
+
+export default App
