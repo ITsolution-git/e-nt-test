@@ -3,6 +3,18 @@ import { StyleSheet, Text, TextInput, View, Button } from "react-native";
 import { connect } from "react-redux";
 
 class signup extends PureComponent {
+
+  state = { 
+    email: '', 
+    password: '', 
+    errorMessage: null 
+  }
+
+  handleSignUp = () => {
+    // TODO: Firebase stuff...
+    console.log('handleSignUp')
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -20,7 +32,10 @@ class signup extends PureComponent {
           style={styles.textInput}
         />
         <View style={styles.button}>
-          <Button title="Sign Up" />
+          <Button title="Sign Up" 
+           onPress={this.handleSignUp}
+          />
+          
         </View>
         <View style={styles.button}>
           <Button

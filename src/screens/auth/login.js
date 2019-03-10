@@ -8,6 +8,17 @@ class Login extends PureComponent {
   constructor() {
     super();
   }
+
+  state = { 
+  email: '', 
+  password: '', 
+  errorMessage: null 
+}
+
+  handleLogin = () => {
+    // TODO: Firebase stuff...
+    console.log('handleLogin')
+  }
   render() {
     console.log(this.props.navigation.navigate)
     return (
