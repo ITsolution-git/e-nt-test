@@ -2,7 +2,7 @@ import React, { PureComponent } from "react";
 import { Image, Text, TextInput, View, Button, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import logo from "./../../assests/images/logo.png";
-
+import firebase from 'react-native-firebase'
 
 class Login extends PureComponent {
   constructor() {
@@ -16,8 +16,7 @@ class Login extends PureComponent {
 }
 
   handleLogin = () => {
-    // TODO: Firebase stuff...
-    console.log('handleLogin')
+    
   }
   render() {
     console.log(this.props.navigation.navigate)
@@ -30,12 +29,16 @@ class Login extends PureComponent {
           style={styles.textInput}
           autoCapitalize="none"
           placeholder="Email"
+          value="this.state.email"
+          onChangeText={email => this.setState({ email })}
         />
         <TextInput
           secureTextEntry
           style={styles.textInput}
           autoCapitalize="none"
           placeholder="Password"
+          value={this.state.password}
+          onChangeText={password => this.setState({ password })}
         />
 
         <View style={styles.button}>
