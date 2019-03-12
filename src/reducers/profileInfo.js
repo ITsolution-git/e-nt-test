@@ -44,6 +44,7 @@ export default function(state = intialState, action) {
         profileData: null,
         isAuthenticated: false
       };
+    
     default:
       return state;
   }
