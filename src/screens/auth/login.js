@@ -2,13 +2,10 @@ import React, { PureComponent } from "react";
 import { Image, Text, TextInput, View, Button, StyleSheet } from "react-native";
 import { connect } from "react-redux";
 import logo from "./../../assests/images/logo.png";
-import firebase from 'react-native-firebase'
+import { login } from "./../../actions/loginSignup"
 
 class Login extends PureComponent {
-  constructor() {
-    super();
-  }
-
+ 
   state = { 
   email: '', 
   password: '', 
@@ -16,7 +13,7 @@ class Login extends PureComponent {
 }
 
   handleLogin = () => {
-    
+    this.props.login(this.state.email, this.state.password)
   }
   render() {
     console.log(this.props.navigation.navigate)
@@ -57,12 +54,12 @@ class Login extends PureComponent {
   }
 }
 
-// export default connect(
-//   {},
-//   {}
-// )(Login);
+export default connect(
+  {},
+  {login}
+)(Login);
 
-export default Login
+
 
 const styles = StyleSheet.create({
   container: {

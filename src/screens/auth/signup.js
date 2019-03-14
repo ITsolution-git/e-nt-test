@@ -1,23 +1,18 @@
 import React, { PureComponent } from "react";
 import { StyleSheet, Text, TextInput, View, Button } from "react-native";
 import { connect } from "react-redux";
-import firebase from 'react-native-firebase'
+import { signup } from "./../../actions/loginSignup";
 
-class signup extends PureComponent {
+class Signup extends PureComponent {
+  state = {
+    email: "",
+    password: "",
+    errorMessage: null
+  };
 
-  state = { 
-    email: '', 
-    password: '', 
-    errorMessage: null 
-  }
-
-  handleSignUp = () => {  
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(() => this.props.navigation.navigate('Main'))
-      .catch(error => this.setState({ errorMessage: error.message }))
-  }
+  handleSignUp = () => {
+    this.props.signup(this.state.email, this.state.password);
+  };
 
   render() {
     return (
@@ -28,18 +23,17 @@ class signup extends PureComponent {
           placeholder="Email"
           autoCapitalize="none"
           style={styles.textInput}
+          onChangeText={email => this.setState({ email })}
         />
         <TextInput
           secureTextEntry
           placeholder="Password"
           autoCapitalize="none"
           style={styles.textInput}
+          onChangeText={password => this.setState({ password })}
         />
         <View style={styles.button}>
-          <Button title="Sign Up" 
-           onPress={this.handleSignUp}
-          />
-          
+          <Button title="Sign Up" onPress={this.handleSignUp} />
         </View>
         <View style={styles.button}>
           <Button
@@ -51,12 +45,6 @@ class signup extends PureComponent {
     );
   }
 }
-
-// export default connect(
-//   {},
-//   {}
-// )(signup);
-export default signup
 
 const styles = StyleSheet.create({
   container: {
@@ -76,3 +64,8 @@ const styles = StyleSheet.create({
     marginTop: 5
   }
 });
+
+export default connect(
+  {},
+  { signup }
+)(Signup);
