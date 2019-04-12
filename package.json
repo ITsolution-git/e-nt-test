@@ -8,13 +8,14 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "firebase": "^5.8.5",
-    "firebase-admin": "^7.0.0",
-    "flamelink": "^0.19.12",
     "react": "16.6.3",
     "react-native": "0.58.6",
+    "react-native-elements": "^1.1.0",
     "react-native-firebase": "^5.2.3",
+    "react-native-phone-input": "^0.2.1",
+    "react-native-vector-icons": "^6.4.2",
     "react-navigation": "^3.3.2",
+    "react-navigation-redux-helpers": "^3.0.2",
     "react-redux": "^6.0.1",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0"

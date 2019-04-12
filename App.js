@@ -1,39 +1,30 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- * @lint-ignore-every XPLATJSCOPYRIGHT1
- */
-
 import React, { Component } from "react";
-import app from "./src/config/flamelink.js";
+import { View, Text } from "react-native";
+
 import { connect } from "react-redux";
-import Myroutes from "./src/routes/routes";
+
 import firebase from "react-native-firebase";
 import { loginSession } from "./src/actions/loginSignup";
-import { View } from "react-native";
+import AppNavigator from "./src/routes/routes";
 
 class App extends Component {
   async componentDidMount() {
-    try {
-      firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-          console.log(user);
-          this.props.loginSession(user);
-        }
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    //   firebase.auth().onAuthStateChanged(user => {
+    //     if (user) {
+    //       console.log(user);
+    //       this.props.loginSession(user);
+    //     }
+    //   });
+    // } catch (error) {
+    //   console.log(error);
+    // }
   }
 
   render() {
-    console.log(this.props.IsUserAuthenticated);
     return (
-      <View>
-        <Myroutes />
+      <View style={{ flex: 1, backgroundColor: '#fff' }}>
+        <AppNavigator />
       </View>
     );
   }
@@ -41,7 +32,7 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    IsUserAuthenticated: state.profileInfo.isAuthenticated
+    isAuthenticated: state.profileInfo.isAuthenticated
   };
 };
 

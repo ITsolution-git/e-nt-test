@@ -1,11 +1,11 @@
 import React from 'react'
 import { StyleSheet, Platform, Image, Text, View } from 'react-native'
 
-export default class Main extends React.Component {
+export default class Profile extends React.Component {
 
-render() {
+  render() {
    
-return (
+    return (
       <View style={styles.container}>
         <Text>
           Hi 
@@ -14,6 +14,7 @@ return (
     )
   }
 }
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

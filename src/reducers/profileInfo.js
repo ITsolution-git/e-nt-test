@@ -26,7 +26,7 @@ export default function(state = intialState, action) {
         profileLoading: false,
         profileError: false,
         isAuthenticated: true,
-        pofileData: action.payload
+        profileData: action.payload
       };
     case PROFILE_ERROR:
       return {

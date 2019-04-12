@@ -6,8 +6,6 @@ import React from 'react';
 import { AppRegistry } from "react-native";
 import App from "./App";
 import { name as appName } from "./app.json";
-//Importing FlameLink SDK Configuration
-import flameLinkConfig from "./src/config/flamelink.js";
 import { Provider } from "react-redux";
 import Store from "./store.js";
 

@@ -1,18 +1,30 @@
+import * as ReactNavigation from 'react-navigation'
 import { createSwitchNavigator, createStackNavigator, createAppContainer } from "react-navigation";
-import { loginNavigation } from "./login";
+import { connect } from 'react-redux'
+import { createReduxContainer } from 'react-navigation-redux-helpers';
 
- const allRoutes = createSwitchNavigator(
+import { loginNavigation } from "./login";
+import { drawerNavigation } from "./drawer";
+
+const allRoutes = createSwitchNavigator(
   {
-    home: {
+    auth: {
       screen: loginNavigation
-    }
+    },
+  	drawer: {
+  		screen: drawerNavigation
+  	}
   },
   {
-    initialRouteName: "home"
+    initialRouteName: "drawer"
   }
 );
 
-const App = createAppContainer(allRoutes);
+const Navigator = createAppContainer(allRoutes);
 
 
-export default App
+const AppNavigator = connect(state => ({
+  state: state.nav,
+}))(createReduxContainer(allRoutes, 'root'));
+
+export default Navigator;
