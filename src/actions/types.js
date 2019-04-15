@@ -1,0 +1,4 @@
+
+export const ONBOARDING = {
+	LOAD_SLIDER: 'PROFILE_SUCCESS'
+}

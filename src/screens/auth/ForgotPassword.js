@@ -2,7 +2,6 @@ import React, { PureComponent, Fragment } from "react";
 import { Image, Text, TextInput, View, StyleSheet, TouchableOpacity, Keyboard, Animated } from "react-native";
 import { connect } from "react-redux";
 
-import { logo } from "./../../assests/assets";
 import { theme } from '../../themes';
 // import { login } from "./../../actions/loginSignup"
 import EntreHeader from '../../components/layouts/EntreHeader';

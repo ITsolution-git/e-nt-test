@@ -10,7 +10,7 @@ import EntreButton from '../../components/elements/EntreButton';
 import { Icon, Input, Button } from 'react-native-elements';
 
 
-class HomeScreen extends PureComponent {
+class SearchScreen extends PureComponent {
  
   state = { 
   }
@@ -27,7 +27,7 @@ class HomeScreen extends PureComponent {
         />
 
         <View  style={styles.container} >
-          <Text style={[theme.font, styles.title]}>Home</Text>
+          <Text style={[theme.font, styles.title]}>serach</Text>
         </View>
       </View>
     );
@@ -39,7 +39,7 @@ export default connect(
     return {};
   },
   {}
-)(HomeScreen);
+)(SearchScreen);
 
 
 

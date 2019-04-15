@@ -32,6 +32,13 @@ export default class EntreButton extends React.Component {
       };
       textSubStyle.fontSize = 20;
       textSubStyle.fontWeight = 'bold';
+    } else if (btnType == EntreButton.TYPE_WELCOME_ROUND) {
+      subStyle = {
+        width: 150,
+        height: 50,
+        borderRadius: 15  
+      };
+      textSubStyle.fontSize = 15;
     }
 
     if (colorType == EntreButton.COLOR_BLUE) {
@@ -45,6 +52,9 @@ export default class EntreButton extends React.Component {
         borderWidth: 2,
         borderColor: '#707070'
       }
+    } else if (colorType == EntreButton.COLOR_GREY) {
+      textSubStyle.color = theme.textGrey1;
+      subStyle.backgroundColor = '#E9EBEF';
     }
 
     return (

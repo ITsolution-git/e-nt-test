@@ -11,10 +11,10 @@ const width = Dimensions.get('window').width;
 const height = Dimensions.get('window').height;
 
 const menuFields = [
-	{ value: 'HomeScreen', label: 'Home1', icon: 'home', type: 'material-community', iconColor: theme.textBlue},
-	{ value: 'HomeScreen', label: 'Home2', icon: 'home', type: 'material-community', iconColor: theme.textBlue },
-	{ value: 'HomeScreen', label: 'Home3', icon: 'home', type: 'material-community', iconColor: theme.textBlue },
-	{ value: 'HomeScreen', label: 'Home4', icon: 'logout', type: 'material-community', iconColor: theme.textBlue },
+	{ value: 'HomeDrawer', label: 'Home1', icon: 'home', type: 'material-community', iconColor: theme.textBlue},
+	{ value: 'HomeDrawer', label: 'Home2', icon: 'home', type: 'material-community', iconColor: theme.textBlue },
+	{ value: 'HomeDrawer', label: 'Home3', icon: 'home', type: 'material-community', iconColor: theme.textBlue },
+	{ value: 'HomeDrawer', label: 'Home4', icon: 'logout', type: 'material-community', iconColor: theme.textBlue },
 ];
 
 const bottomMenuFields = [

@@ -5,6 +5,7 @@ import { createReduxContainer } from 'react-navigation-redux-helpers';
 
 import { loginNavigation } from "./login";
 import { drawerNavigation } from "./drawer";
+import { onboardingNavigation } from "./onboarding";
 
 const allRoutes = createSwitchNavigator(
   {
@@ -13,6 +14,9 @@ const allRoutes = createSwitchNavigator(
     },
   	drawer: {
   		screen: drawerNavigation
+  	},
+  	onboarding: {
+  		screen: onboardingNavigation
   	}
   },
   {

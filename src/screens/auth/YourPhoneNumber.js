@@ -52,7 +52,7 @@ class YourPhoneNumber extends PureComponent {
       })
     ]).start();
   };
-  
+
   render() {
     const {email, password, fullName, username} = this.state;
 
@@ -86,6 +86,7 @@ class YourPhoneNumber extends PureComponent {
             titleStyle={[theme.pattern, { fontSize: 20, color: theme.textBlue }]}
             buttonStyle={{ borderRadius: 20, width: 100, borderWidth: 2, borderColor: theme.primaryBlue, paddingVertical: 5 }}
             type={'outline'}
+            onPress={()=>this.props.navigation.navigate('onboarding')}
           />
         </View>
       </Animated.View>
