@@ -11,24 +11,26 @@ import { profileStackNavigation } from "./profile";
 import DrawerSidebar from '../components/layouts/DrawerSidebar';
 // import EntreTabbar from '../components/layouts/EntreTabbar';
 
-const tabRouteConfigs = {
-  HomeTab: {
-    screen: homeStackNavigation
-  },
-  SearchTab: {
-    screen: searchStackNavigation
-  },
-  ProfileTab: {
-    screen: profileStackNavigation
+const tabRouteConfigs = (settings) => {
+  return {
+    HomeTab: {
+      screen: homeStackNavigation(settings.defaultHomeRoute)
+    },
+    SearchTab: {
+      screen: searchStackNavigation()
+    },
+    ProfileTab: {
+      screen: profileStackNavigation()
+    }
   }
 };
   
 
 const tabConfigs = ['HomeTab', 'SearchTab', 'ProfileTab'];
 
-const createTab = (tabRoute) => {
+const createTab = (settings) => {
   return createBottomTabNavigator(
-    tabRouteConfigs,
+    tabRouteConfigs(settings),
     {
       headerMode: "none",
       swipeEnabled: true,
@@ -43,6 +45,7 @@ const createTab = (tabRoute) => {
           height: 40
         }
       },
+
       defaultNavigationOptions: ({ navigation }) => ({
         tabBarIcon: ({ focused, horizontal, tintColor }) => {
           const { routeName } = navigation.state;
@@ -64,10 +67,36 @@ const createTab = (tabRoute) => {
 export const drawerNavigation = createDrawerNavigator(
   {
     HomeDrawer: {
-      screen: createTab('HomeTab')
+      screen: createTab({
+        tabName: 'HomeTab',
+        defaultHomeRoute: 'HomeScreen'
+      })
     },
+    // SupportDrawer: {
+    //   screen: createTab({
+    //     tabName: 'SupportTab',
+    //     defaultHomeRoute: 'SupportScreen'
+    //   })
+    // },
+
+    // SettingsDrawer: {
+    //   screen: createTab({
+    //     tabName: 'SettingsTab',
+    //     defaultHomeRoute: 'SettingsScreen'
+    //   })
+    // },
+
+    // TOSDrawer: {
+    //   screen: createTab({
+    //     tabName: 'TOSTab',
+    //     defaultHomeRoute: 'TOSScreen'
+    //   })
+    // },
     ProfileDrawer: {
-      screen: createTab('ProfileTab')
+      screen: createTab({
+        tabName: 'ProfileTab',
+        defaultHomeRoute: 'SupportScreen'
+      })
     },
   },
   {

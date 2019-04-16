@@ -32,10 +32,11 @@ export default class EntreHeader extends React.Component {
       </TouchableOpacity>;
     }
     if (!centerComponent) {
-      centerComponent = <Image 
+      centerComponent = <TouchableOpacity onPress={()=>navigation.navigate('HomeScreen')} style={styles.logo} >
+        <Image 
         style={styles.logo} 
-        source={logo} 
-      />;
+        source={logo}
+      /></TouchableOpacity>;
     }
 
     return (

@@ -24,9 +24,9 @@ const menuFields = [
 	{ value: 'HomeDrawer', label: 'Home', icon: 'home', type: 'material-community', iconColor: theme.textBlue},
 	{ value: 'HomeDrawer', label: 'Entre Pro', icon: 'calendar-text', type: 'material-community', iconColor: theme.textBlue },
 	{ value: 'HomeDrawer', label: 'Enter Builder', icon: 'money', type: 'font-awesome', iconColor: theme.textBlue, iconSize: 20 },
-	{ value: 'HomeDrawer', label: 'Support', icon: 'account', type: 'material-community', iconColor: theme.textBlue },
-	{ value: 'HomeDrawer', label: 'Settings', icon: 'information-outline', type: 'material-community', iconColor: theme.textGrey },
-	{ value: 'HomeDrawer', label: 'Privacy', icon: 'security', type: 'material-community', iconColor: theme.textGrey },
+	{ value: 'SupportScreen', label: 'Support', icon: 'account', type: 'material-community', iconColor: theme.textBlue },
+	{ value: 'SettingsScreen', label: 'Settings', icon: 'information-outline', type: 'material-community', iconColor: theme.textGrey },
+	{ value: 'TOSScreen', label: 'Privacy', icon: 'security', type: 'material-community', iconColor: theme.textGrey },
 ];
 
 const bottomMenuFields = [
