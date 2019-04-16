@@ -5,25 +5,138 @@ import moment from 'moment';
 import { theme } from '../../themes';
 
 import {
-	EntreText
+	EntreText,
+	EntreAvatar
 } from './index';
+import {
+	Avatar,
+	Icon,
+	Divider,
+	Image
+} from 'react-native-elements';
+
+import { kFormatter } from '../../utils';
 
 export default class EntrePost extends React.Component {
 
+	componentDidMount() {
+		// Todo: get scalable image size.
+    // Image.getSize(this.props.imageUrl, (width, height) => {
+    //   // calculate image width and height 
+    //   const screenWidth = Dimensions.get('window').width
+    //   const scaleFactor = width / screenWidth
+    //   const imageHeight = height / scaleFactor
+    //   this.setState({imgWidth: screenWidth, imgHeight: imageHeight})
+    // })
+  }
+
+	_renderImage = (post) => {
+		const { view } = this.props;
+		if (view == 'detailed') {
+			return (
+				<Image
+					source={{ uri: post.image }}
+					style={[styles.image, { height: 400 }]}
+					resizeMode="contain"
+				/>
+			);
+		} else {
+
+			return (
+				<Image
+					source={{ uri: post.image }}
+					style={styles.image}
+				/>
+			);
+		}
+	}
+	handleFav = (post) => {
+
+	}
+
+	handleComment = (post) => {
+		
+	}
+
+	handleShare = (post) => {
+		
+	}
+
 	render() {
-		const { post, onPress } = this.props;
+		// view ['detailed']
+		const { post, handleContentPress, view } = this.props;
 
 		return (
-			<View style={[styles.container]}>
+			<View style={[styles.container]} key={post.id}>
 				<View style={styles.header}>
-					<EntreText>{post.author.name}</EntreText>
-					<EntreText>{moment(post.createdAt).format('LL')}</EntreText>
-				</View>
-				<View style={styles.content}>
-					<EntreText>{post.content}</EntreText>
-				</View>
-				<View style={styles.footer}>
+					<View style={{ flexDirection: 'row', alignItems: 'center' }}>
+						<View>
+							<EntreAvatar
+								source={{
+							    uri: post.author.avatar
+							  }}
+						  />
+						</View>
 
+						<View style={{ width: 10 }} />
+
+						<View>
+							<EntreText h4>{post.author.name}</EntreText>
+							<EntreText color='textGrey' >{moment(post.createdAt).format('LL')}</EntreText>
+						</View>
+					</View>
+
+					<TouchableOpacity>
+						<Icon size={20} name='chevron-down' type='material-community' /> 
+					</TouchableOpacity>
+				</View>
+
+				<TouchableOpacity style={styles.content} onPress={()=>handleContentPress(post)}>
+					<EntreText color='textGrey1' size={14}>{post.content}</EntreText>
+					<View style={{ height: 10 }} />
+
+					{this._renderImage(post)}
+				</TouchableOpacity>
+
+				<Divider />
+				
+				<View style={styles.footer}>
+					<View>
+						<TouchableOpacity onPress={()=>this.handleShare(post)}>
+							<Icon 
+								size={18} 
+								name='sharealt' 
+								type='antdesign' 
+								color={theme.textGrey1}
+							/> 
+						</TouchableOpacity>
+					</View>
+
+					<View style={{ flexDirection: 'row' }}>
+						<TouchableOpacity style={styles.footerContent} onPress={()=>this.handleComment(post)}>
+							<EntreText color='textGrey1' size={14}>{kFormatter(post.commentCount)}</EntreText>
+							<View style={{width: 5}} />
+							<Icon 
+								size={18} 
+								name='comment' 
+								type='evilicon' 
+								color={theme.textGrey1}
+							/> 
+						</TouchableOpacity>
+
+						<View style={{width: 20}} />
+
+						<TouchableOpacity style={styles.footerContent} onPress={()=>this.handleFav(post)}>
+							<EntreText color='textGrey1' size={14}>{kFormatter(post.favCount)}</EntreText>
+							<View style={{width: 5}} />
+							<Icon 
+								size={18} 
+								name='heart' 
+								type='evilicon' 
+								color={theme.textGrey1}
+							/> 
+						</TouchableOpacity>
+					</View>
 				</View>
 			</View>
 		);
@@ -34,17 +147,20 @@ const styles = StyleSheet.create({
 	container: {
 		borderRadius: 20,
 		borderWidth: 1,
+		borderColor: '#fff',
 
-		shadowColor: '#000',
+		shadowColor: '#4a4a4a',
 		shadowOffset: {
 			width: 0,
 			height: 0
 		},
-		shadowRadius: 5,
-		shadowOpacity: 1,
+		shadowRadius: 3,
+		shadowOpacity: 0.1,
 
 		padding: 10,
-		margin: 10
+		margin: 3,
+
+		backgroundColor: '#fff'
 	},
 
 	logo: {
@@ -52,8 +168,28 @@ const styles = StyleSheet.create({
 		height: 90
 	},
 
-	subText: {
-		color: theme.textGrey
+	header: {
+		flexDirection: 'row',
+		justifyContent: 'space-between'
+	},
+
+	content: {
+		paddingVertical: 10
+	},
+
+	image: {
+		height: 150,
+		borderRadius: 20
+	},
+
+	footer: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		paddingTop: 10
+	},
+	footerContent: {
+		flexDirection: 'row',
+		alignItems: 'center'
 	}
 });
 

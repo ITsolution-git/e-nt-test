@@ -4,7 +4,7 @@ import onboardingReducer from "./onboarding.js";
 import postsReducer from "./posts.js";
 
 const rootReducer = combineReducers({
-  profileInfo: profileReducer,
+  profile: profileReducer,
   onboarding: onboardingReducer,
   posts: postsReducer
 });

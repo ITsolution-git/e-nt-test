@@ -50,11 +50,16 @@ class HomeScreen extends PureComponent {
         value={searchKey}
         onChangeText={searchKey => this.setState({ searchKey })}
         autoCapitalize='none'
-        containerStyle={{ paddingHorizontal: 0 }}
-        inputContainerStyle={{ paddingHorizontal: 0}}
+        containerStyle={[styles.search, { paddingHorizontal: 0 }]}
+        inputContainerStyle={{ paddingHorizontal: 5, borderBottomWidth: 0, height: 30 }}
       />
     );
   }
+
+  handleContentPress = (post) => {
+    this.props.navigation.navigate('PostScreen');
+  }
+
   render() {
     const { posts } = this.props;
 
@@ -64,12 +69,16 @@ class HomeScreen extends PureComponent {
           navigation={this.props.navigation}
         />
 
-        <ScrollView  style={styles.container} >
+        <View style={{ marginHorizontal: 20 }}>
           <EntreText h3 bold>What's on your mind?</EntreText>
+          <View style={{height: 10}} />
           {this.renderSearchField()}
+        </View>
+
+        <ScrollView  style={styles.container} >
 
           <View style={{height: 10}} />
-          {posts.map(post=><EntrePost post={post} />)}
+          {posts.map(post=><EntrePost post={post} key={post.id} handleContentPress={this.handleContentPress}/>)}
 
         </ScrollView>
       </View>
@@ -96,5 +105,23 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: 'bold',
     alignSelf: 'flex-start'
+  },
+
+  search: {
+    borderWidth: 1,
+    borderColor: '#fff',
+    borderRadius: 5,
+
+    shadowColor: '#4a4a4a',
+    shadowOffset: {
+      width: 0,
+      height: 0
+    },
+    shadowRadius: 3,
+    shadowOpacity: 0.1,
+    backgroundColor: '#fff',
+
+    margin: 3,
+    padding: 3
   }
 });

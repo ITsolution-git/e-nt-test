@@ -7,6 +7,7 @@ export default {
 
 	primaryBlue: '#00C4FF',
 	primaryWhite: '#fff',
+	grey: '#454F63',
 	font: {
 
 	},

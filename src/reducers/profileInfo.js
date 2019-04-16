@@ -6,7 +6,11 @@ import {
 } from "../config/type.js";
 
 const intialState = {
-  pofileData: null,
+  profileData: {
+    avatar: 'https://mdbootstrap.com/img/Photos/Avatars/img%20(9).jpg',
+    name: 'Victor Niculici',
+    username: '@niculici.victor'
+  },
   profileLoading: false,
   profileError: null,
   isAuthenticated: false

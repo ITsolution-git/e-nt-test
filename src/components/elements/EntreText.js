@@ -7,7 +7,7 @@ import { theme } from '../../themes';
 export default class EntreText extends React.Component {
 
   render() {
-    const { bold, style, children, ...other} = this.props;
+    const { bold, style, children, size, ...other} = this.props;
     let extended = {
       fontSize: 13
     };
@@ -18,8 +18,13 @@ export default class EntreText extends React.Component {
 
     if (theme[this.props.color]) {
       extended.color = theme[this.props.color];
+    } else if(this.props.color) {
+      extended.color = this.props.color;
     }
 
+    if (size) {
+      extended.fontSize = size;
+    }
     return (
       <Text 
         style={[theme.font, extended, style]} {...other} 
