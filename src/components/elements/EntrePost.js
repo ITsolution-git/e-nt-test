@@ -21,14 +21,14 @@ export default class EntrePost extends React.Component {
 
 	componentDidMount() {
 		// Todo: get scalable image size.
-    // Image.getSize(this.props.imageUrl, (width, height) => {
-    //   // calculate image width and height 
-    //   const screenWidth = Dimensions.get('window').width
-    //   const scaleFactor = width / screenWidth
-    //   const imageHeight = height / scaleFactor
-    //   this.setState({imgWidth: screenWidth, imgHeight: imageHeight})
-    // })
-  }
+		// Image.getSize(this.props.imageUrl, (width, height) => {
+		//   // calculate image width and height 
+		//   const screenWidth = Dimensions.get('window').width
+		//   const scaleFactor = width / screenWidth
+		//   const imageHeight = height / scaleFactor
+		//   this.setState({imgWidth: screenWidth, imgHeight: imageHeight})
+		// })
+	}
 
 	_renderImage = (post) => {
 		const { view } = this.props;
@@ -50,6 +50,75 @@ export default class EntrePost extends React.Component {
 			);
 		}
 	}
+
+	_renderFooter = () => {
+		const { view, post } = this.props;
+
+		if (view == 'compact' || view == 'trending')
+			return null;
+
+		return (
+			<View style={styles.footer}>
+				<Divider />
+
+				<View>
+					<TouchableOpacity onPress={()=>this.handleShare(post)}>
+						<Icon 
+							size={18} 
+							name='sharealt' 
+							type='antdesign' 
+							color={theme.textGrey1}
+						/> 
+					</TouchableOpacity>
+				</View>
+
+				<View style={{ flexDirection: 'row' }}>
+					<TouchableOpacity style={styles.footerContent} onPress={()=>this.handleComment(post)}>
+						<EntreText color='textGrey1' size={14}>{kFormatter(post.commentCount)}</EntreText>
+						<View style={{width: 5}} />
+						<Icon 
+							size={18} 
+							name='comment' 
+							type='evilicon' 
+							color={theme.textGrey1}
+						/> 
+					</TouchableOpacity>
+
+					<View style={{width: 20}} />
+
+					<TouchableOpacity style={styles.footerContent} onPress={()=>this.handleFav(post)}>
+						<EntreText color='textGrey1' size={14}>{kFormatter(post.favCount)}</EntreText>
+						<View style={{width: 5}} />
+						<Icon 
+							size={18} 
+							name='heart' 
+							type='evilicon' 
+							color={theme.textGrey1}
+						/> 
+					</TouchableOpacity>
+				</View>
+			</View>
+		);
+	}
+
+	_renderContent = () => {
+		const { post, handleContentPress, view } = this.props;
+
+		return (
+			<TouchableOpacity style={styles.content} onPress={()=>handleContentPress(post)}>
+				<EntreText 
+					color='textGrey1' 
+					size={14}
+					numberOfLines={ view === 'compact' ? 1 : null }
+				>{post.content}</EntreText>
+				
+				<View style={{ height: 10 }} />
+
+				{this._renderImage(post)}
+			</TouchableOpacity>
+		);
+	}
+
 	handleFav = (post) => {
 
 	}
@@ -63,7 +132,7 @@ export default class EntrePost extends React.Component {
 	}
 
 	render() {
-		// view ['detailed']
+		// view ['detailed', 'compact', 'normal', 'trending']
 		const { post, handleContentPress, view } = this.props;
 
 		return (
@@ -73,9 +142,9 @@ export default class EntrePost extends React.Component {
 						<View>
 							<EntreAvatar
 								source={{
-							    uri: post.author.avatar
-							  }}
-						  />
+									uri: post.author.avatar
+								}}
+							/>
 						</View>
 
 						<View style={{ width: 10 }} />
@@ -91,53 +160,9 @@ export default class EntrePost extends React.Component {
 					</TouchableOpacity>
 				</View>
 
-				<TouchableOpacity style={styles.content} onPress={()=>handleContentPress(post)}>
-					<EntreText color='textGrey1' size={14}>{post.content}</EntreText>
-					<View style={{ height: 10 }} />
-
-					{this._renderImage(post)}
-				</TouchableOpacity>
-
-				<Divider />
+				{this._renderContent()}
 				
-				<View style={styles.footer}>
-					<View>
-						<TouchableOpacity onPress={()=>this.handleShare(post)}>
-							<Icon 
-								size={18} 
-								name='sharealt' 
-								type='antdesign' 
-								color={theme.textGrey1}
-							/> 
-						</TouchableOpacity>
-					</View>
-
-					<View style={{ flexDirection: 'row' }}>
-						<TouchableOpacity style={styles.footerContent} onPress={()=>this.handleComment(post)}>
-							<EntreText color='textGrey1' size={14}>{kFormatter(post.commentCount)}</EntreText>
-							<View style={{width: 5}} />
-							<Icon 
-								size={18} 
-								name='comment' 
-								type='evilicon' 
-								color={theme.textGrey1}
-							/> 
-						</TouchableOpacity>
-
-						<View style={{width: 20}} />
-
-						<TouchableOpacity style={styles.footerContent} onPress={()=>this.handleFav(post)}>
-							<EntreText color='textGrey1' size={14}>{kFormatter(post.favCount)}</EntreText>
-							<View style={{width: 5}} />
-							<Icon 
-								size={18} 
-								name='heart' 
-								type='evilicon' 
-								color={theme.textGrey1}
-							/> 
-						</TouchableOpacity>
-					</View>
-				</View>
+				{this._renderFooter()}
 			</View>
 		);
 	}

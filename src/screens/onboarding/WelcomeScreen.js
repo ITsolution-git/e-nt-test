@@ -36,17 +36,17 @@ class WelcomeScreen extends React.Component {
 					{questions.map(ques => {
 						return (
 							<CheckBox
-							  left
-							  checkedColor={'#fff'}
-							  uncheckedColor={'#fff'}
-							  size={20}
-							  title={ques.title}
-							  checkedIcon='circle-o'
-							  uncheckedIcon='circle'
-							  key={ques.id}
-							  containerStyle={{ backgroundColor: backColor, margin: 0, borderWidth: 0, 	paddingHorizontal: 3 }}
-							  textStyle={[theme.font,  { color: '#fff' }]}
-							  onIconPress={()=>onPress(questions, ques.id)}
+								left
+								checkedColor={'#fff'}
+								uncheckedColor={'#fff'}
+								size={20}
+								title={ques.title}
+								checkedIcon='circle-o'
+								uncheckedIcon='circle'
+								key={ques.id}
+								containerStyle={{ backgroundColor: backColor, margin: 0, borderWidth: 0, 	paddingHorizontal: 3 }}
+								textStyle={[theme.font,  { color: '#fff' }]}
+								onIconPress={()=>onPress(questions, ques.id)}
 							/>
 						);
 					}) }
@@ -125,9 +125,9 @@ class WelcomeScreen extends React.Component {
 					loop={false}
 					scrollEnabled={false}
 					paginationStyle={{
-            bottom: -23,
-          }}
-          ref={this._swiperRef}
+						bottom: -23,
+					}}
+					ref={this._swiperRef}
 				>
 					<View style={[styles.slide, styles.slide1]}>
 						{this.renderWelcomeSlider()}
@@ -186,38 +186,38 @@ const styles = StyleSheet.create({
 	},
 
 
-  wrapper: {
-  },
-  slide: {
-    flex: 1,
-    borderRadius: 20,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  slide1: {
-  	margin: 5,
-  	backgroundColor: '#00C4FF',
-  	// borderWidth: 1,
-  	borderColor: '#707070',
+	wrapper: {
+	},
+	slide: {
+		flex: 1,
+		borderRadius: 20,
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
+	slide1: {
+		margin: 5,
+		backgroundColor: '#00C4FF',
+		// borderWidth: 1,
+		borderColor: '#707070',
 
-    shadowColor: '#707070',
-    shadowOffset: {
-      width: 0,
-      height: 0
-    },
-    shadowRadius: 5,
-    shadowOpacity: 0.2	
-  },
+		shadowColor: '#707070',
+		shadowOffset: {
+			width: 0,
+			height: 0
+		},
+		shadowRadius: 5,
+		shadowOpacity: 0.2	
+	},
 
-  text: {
-    fontSize: 30,
-    fontWeight: 'bold',
-  },
+	text: {
+		fontSize: 30,
+		fontWeight: 'bold',
+	},
 
-  btnGroup: {
-  	marginHorizontal: 20,
-  	flexDirection: 'row'
-  }
+	btnGroup: {
+		marginHorizontal: 20,
+		flexDirection: 'row'
+	}
 });
 
 export default connect(state => {

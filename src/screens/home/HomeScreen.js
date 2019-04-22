@@ -78,7 +78,7 @@ class HomeScreen extends PureComponent {
         <ScrollView  style={styles.container} >
 
           <View style={{height: 10}} />
-          {posts.map(post=><EntrePost post={post} key={post.id} handleContentPress={this.handleContentPress}/>)}
+          {posts.map(post=><EntrePost post={post} key={post.id} handleContentPress={this.handleContentPress} view={'normal'}/>)}
 
         </ScrollView>
       </View>

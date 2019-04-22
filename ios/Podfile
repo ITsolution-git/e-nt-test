@@ -14,6 +14,8 @@ target 'entreClientwithoutExpo' do
     # Pods for testing
     pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+    pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
+
   end
 
   target 'entreClientwithoutExpoTests' do

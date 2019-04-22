@@ -55,6 +55,16 @@ const intialState = {
   },{
     id: 7, title: 'Entrepreneur',
   },],
+
+  locations: [{
+    id: 0, title: 'New York City'
+  },{
+    id: 1, title: 'San Fransisco'
+  },{
+    id: 2, title: 'Los Angels'
+  },{
+    id: 3, title: 'New York City'
+  },]
 };
 
 export default function(state = intialState, action) {

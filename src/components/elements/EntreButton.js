@@ -10,6 +10,7 @@ export default class EntreButton extends React.Component {
   static TYPE_LARGE_ROUND = 1;
   static TYPE_SMALL_ROUND_OUTLINE = 2;
   static TYPE_SMALL_ROUND = 3;
+  static TYPE_SMALL_FILTER = 4;
   
   static COLOR_BLUE = 1;
   static COLOR_WHITE = 2;
@@ -58,6 +59,14 @@ export default class EntreButton extends React.Component {
         borderRadius: 15
       };
       textSubStyle.fontSize = 15;
+    } else if (btnType == EntreButton.TYPE_SMALL_FILTER) {
+
+      subStyle = {
+        width: 80,
+        height: 30,
+        borderRadius: 5
+      };
+      textSubStyle.fontSize = 14;
     }
 
     if (colorType == EntreButton.COLOR_BLUE) {
@@ -84,7 +93,7 @@ export default class EntreButton extends React.Component {
 
     return (
       <TouchableOpacity style={[styles.container, subStyle, btnStyle]} onPress={onPress}>
-        <Text style={[textStyle, textSubStyle]}>{btnText}</Text>
+        <Text style={[textSubStyle, textStyle]}>{btnText}</Text>
       </TouchableOpacity>
     );
   }

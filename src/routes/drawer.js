@@ -4,8 +4,8 @@ import React, { PureComponent, Fragment } from "react";
 
 import { homeStackNavigation } from "./home";
 import { searchStackNavigation } from "./search";
-// import LearnStack from "./learn";
-// import NotificationStack from "./notification";
+import { learningStackNavigation } from "./learning";
+import { activityStackNavigation } from "./activity";
 import { profileStackNavigation } from "./profile";
 
 import DrawerSidebar from '../components/layouts/DrawerSidebar';
@@ -19,6 +19,12 @@ const tabRouteConfigs = (settings) => {
     SearchTab: {
       screen: searchStackNavigation()
     },
+    LearningTab: {
+      screen: learningStackNavigation()
+    },
+    ActivityTab: {
+      screen: activityStackNavigation()
+    },
     ProfileTab: {
       screen: profileStackNavigation()
     }
@@ -26,7 +32,7 @@ const tabRouteConfigs = (settings) => {
 };
   
 
-const tabConfigs = ['HomeTab', 'SearchTab', 'ProfileTab'];
+const tabConfigs = ['HomeTab', 'SearchTab', 'LearningTab', 'ActivityTab', 'ProfileTab'];
 
 const createTab = (settings) => {
   return createBottomTabNavigator(
@@ -36,6 +42,7 @@ const createTab = (settings) => {
       swipeEnabled: true,
 
       // tabBarComponent: EntreTabbar,
+      initialRouteName: 'ProfileTab',
 
       tabBarOptions: {
         activeTintColor: '#000000',
@@ -54,6 +61,10 @@ const createTab = (settings) => {
             return <Icon name={'home'} size={25} color={tintColor} />;
           } else if (routeName === 'SearchTab') {
             return <Icon name={'search'} size={25} color={tintColor} />;
+          } else if (routeName === 'LearningTab') {
+            return <Icon name={'play-circle'} size={25} color={tintColor}  type={'font-awesome'}/>;
+          } else if (routeName === 'ActivityTab') {
+            return <Icon name={'bolt'} size={25} color={tintColor} type={'font-awesome'}/>;
           } else if (routeName === 'ProfileTab') {
             return <Icon name={'account'} type={'material-community'} size={25} color={tintColor} />;
           }
@@ -70,32 +81,6 @@ export const drawerNavigation = createDrawerNavigator(
       screen: createTab({
         tabName: 'HomeTab',
         defaultHomeRoute: 'HomeScreen'
-      })
-    },
-    // SupportDrawer: {
-    //   screen: createTab({
-    //     tabName: 'SupportTab',
-    //     defaultHomeRoute: 'SupportScreen'
-    //   })
-    // },
-
-    // SettingsDrawer: {
-    //   screen: createTab({
-    //     tabName: 'SettingsTab',
-    //     defaultHomeRoute: 'SettingsScreen'
-    //   })
-    // },
-
-    // TOSDrawer: {
-    //   screen: createTab({
-    //     tabName: 'TOSTab',
-    //     defaultHomeRoute: 'TOSScreen'
-    //   })
-    // },
-    ProfileDrawer: {
-      screen: createTab({
-        tabName: 'ProfileTab',
-        defaultHomeRoute: 'SupportScreen'
       })
     },
   },
