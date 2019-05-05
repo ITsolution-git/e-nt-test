@@ -2,20 +2,22 @@ import {
   PROFILE_SUCCESS,
   PROFILE_LOADING,
   PROFILE_LOGOUT,
-  PROFILE_ERROR
+  PROFILE_ERROR,
+  PROFILE_SIGNUP_INITIAL
 } from "../config/type.js";
 import firebase from "react-native-firebase";
 
-export const login = (email, password) => {
-  return function(dispatch) {
+export const login = (fullName, username, email, password) => {
+  return async (dispatch) => {
     dispatch({ type: PROFILE_LOADING });
-    firebase
+    console.log(`Action Dispatched`)
+    return await firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
       .then(user => {
         console.log("This is user from login", user);
         return dispatch({
-          type: PROFILE_SUCCESS,
+          type: PROFILE_SIGNUP_INITIAL,
           payload: user
         });
       })
@@ -38,22 +40,24 @@ export const loginSession = user => {
   };
 };
 
-export const signup = (email, password) => {
+export const signup =  (fullName, username, email, password) => {
   return function(dispatch) {
     dispatch({ type: PROFILE_LOADING });
-    firebase
+     firebase
+      .auth()
       .createUserWithEmailAndPassword(email, password)
-      .then(user => {
+      .then(() => {
         console.log("This is user from signup", signup);
         return dispatch({
           type: PROFILE_SUCCESS,
-          payload: user
-        });
+          payload: {fullName, username, email}
+        })
       })
       .catch(error => {
+        console.log(error)
         return dispatch({
           type: PROFILE_ERROR,
-          payload: error.data
+          payload: error.message
         });
       });
   };

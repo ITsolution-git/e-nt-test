@@ -2,18 +2,16 @@ import {
   PROFILE_SUCCESS,
   PROFILE_LOADING,
   PROFILE_LOGOUT,
-  PROFILE_ERROR
+  PROFILE_ERROR,
+  PROFILE_SIGNUP_INITIAL
 } from "../config/type.js";
 
 const intialState = {
-  profileData: {
-    avatar: 'https://mdbootstrap.com/img/Photos/Avatars/img%20(9).jpg',
-    name: 'Victor Niculici',
-    username: '@niculici.victor'
-  },
+  profileData: null,
   profileLoading: false,
   profileError: null,
-  isAuthenticated: false
+  isAuthenticated: false,
+  signup_process_intial: false
 };
 
 export default function(state = intialState, action) {
@@ -22,15 +20,25 @@ export default function(state = intialState, action) {
       return {
         ...state,
         profileLoading: true,
-        profileData: null
+        profileData: null,
+        profileError: false,
       };
+    case PROFILE_SIGNUP_INITIAL: 
+    return {
+      ...state, 
+      profileLoading: false, 
+      profileError, 
+      profileData: action.payload,
+      isAuthenticated: false,
+      signup_process_intial: true
+    }
     case PROFILE_SUCCESS:
       return {
         ...state,
         profileLoading: false,
         profileError: false,
         isAuthenticated: true,
-        profileData: action.payload
+        profileActualData: action.payload
       };
     case PROFILE_ERROR:
       return {
