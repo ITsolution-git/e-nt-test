@@ -1,4 +1,5 @@
 import * as firebase from 'firebase';
+import flamelink from 'flamelink';
 
 const keys = {
     apiKey: "AIzaSyBJftud2hCntfz2w8fsYoJLWfci-z5e5SM",
@@ -10,6 +11,6 @@ const keys = {
     appId: "1:270500852673:web:e6d4a4617b899117"
 }
 
-firebase.initializeApp(keys);
-
-firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
+const firebaseApp = firebase.initializeApp(keys);
+const app = flamelink({ firebaseApp });
+export default app;

@@ -81,15 +81,7 @@ class Signup extends PureComponent {
         this.setState({errorMessage: "You have missed adding details in one of the field"})
     }
   }
-
-  componentWillUpdate() {
-
-  }
-
   render() {
-    if (this.props.signup_process_intial) {
-      this.props.navigation.navigate('YourPhoneNumber')
-    }
     const {email, password, fullName, username} = this.state;
     return (  
       // Animated View Component for Animations

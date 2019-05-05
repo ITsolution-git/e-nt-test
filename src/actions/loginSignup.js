@@ -49,8 +49,8 @@ export const signup =  (fullName, username, email, password) => {
       .then(() => {
         console.log("This is user from signup", signup);
         return dispatch({
-          type: PROFILE_SUCCESS,
-          payload: {fullName, username, email}
+          type:  PROFILE_SIGNUP_INITIAL,
+          payload: {...fullName, ...username, ...email}
         })
       })
       .catch(error => {

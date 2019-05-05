@@ -22,10 +22,12 @@ class AuthChecker extends PureComponent {
 
    componentDidMount () {
      firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        console.log(`user details exsist ${user}`)
+       console.log(user, !this.props.signup_process_intial, !this.props.isAuthenticated)
+      if (user && this.props.isAuthenticated && this.props.signup_process_intial) {
         return this.props.navigation.navigate('drawer');
-        // User is signed in.
+      } else if (user && !this.props.signup_process_intial && !this.props.isAuthenticated) {
+        console.log(`user not ddsigned in`)
+        return this.props.navigation.navigate('YourPhoneNumber');
       } else {
         console.log(`user not signed in`)
         return this.props.navigation.navigate('Landing');

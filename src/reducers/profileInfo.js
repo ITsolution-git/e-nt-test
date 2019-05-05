@@ -27,9 +27,8 @@ export default function(state = intialState, action) {
     return {
       ...state, 
       profileLoading: false, 
-      profileError, 
+      profileError: false,
       profileData: action.payload,
-      isAuthenticated: false,
       signup_process_intial: true
     }
     case PROFILE_SUCCESS:
@@ -38,7 +37,8 @@ export default function(state = intialState, action) {
         profileLoading: false,
         profileError: false,
         isAuthenticated: true,
-        profileActualData: action.payload
+        profileActualData: action.payload,
+        signup_process_intial: true
       };
     case PROFILE_ERROR:
       return {
