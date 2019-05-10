@@ -14,6 +14,16 @@ Installation Instructions
  brew install watchman
  npm install -g react-native-cli
  ```
+ 
+ To intialize and get repo working 
+ 
+ ```
+ cd entreClientWithoutExpo
+ npm install 
+ cd ios 
+ pod install 
+ react-native run-ios
+ ```
 
 ## Folder Structure 
 
