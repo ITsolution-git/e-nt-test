@@ -1,16 +1,19 @@
+// This will intialize as singleton, hence do not need to export it
+// TODO: Update firebase rule
 import * as firebase from 'firebase';
-import flamelink from 'flamelink';
+import 'firebase/firestore';
 
-const keys = {
-    apiKey: "AIzaSyBJftud2hCntfz2w8fsYoJLWfci-z5e5SM",
-    authDomain: "entre-app.firebaseapp.com",
-    databaseURL: "https://entre-app.firebaseio.com",
-    projectId: "entre-app",
-    storageBucket: "entre-app.appspot.com",
-    messagingSenderId: "270500852673",
-    appId: "1:270500852673:web:e6d4a4617b899117"
-}
+firebase.initializeApp({
+    apiKey: "AIzaSyBpWqe0rjAKi12o7awAb_VXsHc7hnOXGcI",
+    authDomain: "entrewithoutflamelink-1e01e.firebaseapp.com",
+    databaseURL: "https://entrewithoutflamelink-1e01e.firebaseio.com",
+    projectId: "entrewithoutflamelink-1e01e",
+    storageBucket: "entrewithoutflamelink-1e01e.appspot.com",
+    messagingSenderId: "787220197816",
+    appId: "1:787220197816:web:9f3118b44bd66b25"
+})
 
-const firebaseApp = firebase.initializeApp(keys);
-const app = flamelink({ firebaseApp });
-export default app;
+const db = firebase.firestore()
+
+
+export default db

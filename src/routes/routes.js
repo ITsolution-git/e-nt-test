@@ -15,48 +15,33 @@ import { onboardingNavigation } from "./onboarding";
 //Protected Routes 
 
 class AuthChecker extends PureComponent {
-   constructor() {
-     super() 
-    
-   }
+  constructor() {
+    super()
 
-   componentDidMount () {
-     firebase.auth().onAuthStateChanged((user) => {
-       console.log(user, !this.props.signup_process_intial, !this.props.isAuthenticated)
-      if (user && this.props.isAuthenticated && this.props.signup_process_intial) {
+  }
+  componentWillMount() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user && this.props.isAuthenticated) {
         return this.props.navigation.navigate('drawer');
-      } else if (user && !this.props.signup_process_intial && !this.props.isAuthenticated) {
-        console.log(`user not ddsigned in`)
-        return this.props.navigation.navigate('YourPhoneNumber');
       } else {
-        console.log(`user not signed in`)
         return this.props.navigation.navigate('Landing');
-        // No user is signed in.
       }
     });
-   }
+  }
 
-   async signout () {
-     //TODO: Test
-     console.log(`Inside Signout`)
-    firebase.auth().signout()
-   }
 
-     render() {
-      return (
-          <View>
-            	<TouchableOpacity onPress={()=> this.signout()}>
-             <Text style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center", height: 500, marginTop: 100}}> Loading...</Text>
-             </TouchableOpacity>
-          </View>
-      );
+  render() {
+    return (
+      <View>
+        <Text>Loading..</Text>
+      </View>
+    );
   }
 }
 
 const mapStateToProps = state => {
   return {
     isAuthenticated: state.profile.isAuthenticated,
-    signup_process_intial: state.profile.signup_process_intial
   }
 };
 
@@ -72,12 +57,12 @@ const allRoutes = createSwitchNavigator(
     Auth: {
       screen: loginNavigation
     },
-  	drawer: {
-  		screen: drawerNavigation
-  	},
-  	onboarding: {
-  		screen: onboardingNavigation
-  	}
+    drawer: {
+      screen: drawerNavigation
+    },
+    onboarding: {
+      screen: onboardingNavigation
+    }
   },
   {
     initialRouteName: "authChecker"
