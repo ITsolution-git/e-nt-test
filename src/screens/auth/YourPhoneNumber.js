@@ -9,23 +9,24 @@ import EntreHeader from '../../components/layouts/EntreHeader';
 import EntreButton from '../../components/elements/EntreButton';
 import { Icon, Input, Button } from 'react-native-elements';
 import PhoneInput from 'react-native-phone-input'
+import { UserDetails } from "./../../helperFunction/firebaseDocStore"
+
+
+
 
 
 class YourPhoneNumber extends PureComponent {
- 
-  state = { 
-    email: '', 
-    password: '', 
-    errorMessage: null 
-  }
-
   constructor(props) {
-    super(props);
-
+    super(props)
+    this.username = this.props.navigation.state.params.username
     this.keyboardHeight = new Animated.Value(0);
   }
+  state = {
+    errorMessage: null,
+    phoneNumber: null,
+  }
 
-  componentWillMount () {
+  componentWillMount() {
     this.keyboardWillShowSub = Keyboard.addListener('keyboardWillShow', this.keyboardWillShow);
     this.keyboardWillHideSub = Keyboard.addListener('keyboardWillHide', this.keyboardWillHide);
   }
@@ -53,17 +54,37 @@ class YourPhoneNumber extends PureComponent {
     ]).start();
   };
 
-  render() {
-    const {email, password, fullName, username} = this.state;
+  phoneNumber = async () => {
+    // TODO: Phone Number validation
+    const number = this.phone.state.formattedNumber
+    console.log(number)
+    if (number) {
+      const intializeUserClass = new UserDetails(this.username)
+      try {
+        await intializeUserClass.updateUserData({ phoneNumber: number })
+        this.props.navigation.navigate('onboarding')
+      } catch (error) {
+        console.log('Error In Phone number Method:', error)
+        if (typeof error === 'string') this.setState({ errorMessage: error })
+        else this.setState({ errorMessage: 'Missing Phone number' })
+      }
+    } else {
+      this.setState({ errorMessage: 'Missing Phone number' })
+    }
+  }
 
-    return (  
+
+
+  render() {
+
+    return (
       <Animated.View style={{ paddingBottom: this.keyboardHeight, flex: 1 }}>
         <EntreHeader
-          leftComponent={<TouchableOpacity 
-            style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }} 
-            onPress={()=>this.props.navigation.goBack()}
+          leftComponent={<TouchableOpacity
+            style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}
+            onPress={() => this.props.navigation.goBack()}
           >
-            <Icon size={30} name='chevron-left' /> 
+            <Icon size={30} name='chevron-left' />
             <Text>{'back'}</Text>
           </TouchableOpacity>}
           centerComponent={<View></View>}
@@ -71,7 +92,7 @@ class YourPhoneNumber extends PureComponent {
           navigation={this.props.navigation}
         />
 
-        <View  style={styles.container} >
+        <View style={styles.container} >
           <Text style={[theme.font, styles.title]}>Your Phone Number</Text>
           <View style={{ height: 40 }} />
 
@@ -86,7 +107,7 @@ class YourPhoneNumber extends PureComponent {
             titleStyle={[theme.pattern, { fontSize: 20, color: theme.textBlue }]}
             buttonStyle={{ borderRadius: 20, width: 100, borderWidth: 2, borderColor: theme.primaryBlue, paddingVertical: 5 }}
             type={'outline'}
-            onPress={()=>this.props.navigation.navigate('onboarding')}
+            onPress={() => { this.phoneNumber() }}
           />
         </View>
       </Animated.View>

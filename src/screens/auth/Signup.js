@@ -75,13 +75,11 @@ class Signup extends PureComponent {
         if (this.state.errorMessage) this.setState({ errorMessage: null })
         const intializedUserClass = new UserDetails(username)
         const usernameExsist = await intializedUserClass.checkUserNameExsist()
-        console.log('Get user detials:', usernameExsist)
         if (!usernameExsist.exists) {
-          const createFirebaseUser = await firebase.auth().createUserWithEmailAndPassword(email, password)
+          await firebase.auth().createUserWithEmailAndPassword(email, password)
           const data = { fullName, email, username }
-          console.log(`Data:`, data)
-          const saveNewUserData = await intializedUserClass.createNewUser(data)
-          this.props.navigation.navigate('YourPhoneNumber')
+          await intializedUserClass.createNewUser(data)
+          this.props.navigation.navigate('YourPhoneNumber', { username })
         } else if (usernameExsist) {
           this.setState({ errorMessage: "Username already exsist" })
         }
