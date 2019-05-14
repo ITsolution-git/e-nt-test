@@ -10,12 +10,13 @@ import EntreButton from '../../components/elements/EntreButton';
 import { Icon, Input, Button } from 'react-native-elements';
 import PhoneInput from 'react-native-phone-input'
 import { UserDetails } from "./../../helperFunction/firebaseDocStore"
+import { Bars, } from 'react-native-loader';
 
 
 
 
 
-class YourPhoneNumber extends PureComponent {
+export default class YourPhoneNumber extends PureComponent {
   constructor(props) {
     super(props)
     this.username = this.props.navigation.state.params.username
@@ -24,6 +25,7 @@ class YourPhoneNumber extends PureComponent {
   state = {
     errorMessage: null,
     phoneNumber: null,
+    loading: false
   }
 
   componentWillMount() {
@@ -60,8 +62,10 @@ class YourPhoneNumber extends PureComponent {
     console.log(number)
     if (number) {
       const intializeUserClass = new UserDetails(this.username)
+      this.setState({ loading: true })
       try {
         await intializeUserClass.updateUserData({ phoneNumber: number })
+        this.setState({ loading: false })
         this.props.navigation.navigate('onboarding')
       } catch (error) {
         console.log('Error In Phone number Method:', error)
@@ -76,51 +80,53 @@ class YourPhoneNumber extends PureComponent {
 
 
   render() {
-
-    return (
-      <Animated.View style={{ paddingBottom: this.keyboardHeight, flex: 1 }}>
-        <EntreHeader
-          leftComponent={<TouchableOpacity
-            style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}
-            onPress={() => this.props.navigation.goBack()}
-          >
-            <Icon size={30} name='chevron-left' />
-            <Text>{'back'}</Text>
-          </TouchableOpacity>}
-          centerComponent={<View></View>}
-          rightComponent={<View></View>}
-          navigation={this.props.navigation}
-        />
-
-        <View style={styles.container} >
-          <Text style={[theme.font, styles.title]}>Your Phone Number</Text>
-          <View style={{ height: 40 }} />
-
-          <PhoneInput
-            ref={(ref) => { this.phone = ref; }}
-            onPressFlag={this.onPressFlag}
+    if (!this.state.loading) {
+      return (
+        <Animated.View style={{ paddingBottom: this.keyboardHeight, flex: 1 }}>
+          <EntreHeader
+            leftComponent={<TouchableOpacity
+              style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}
+              onPress={() => this.props.navigation.goBack()}
+            >
+              <Icon size={30} name='chevron-left' />
+              <Text>{'back'}</Text>
+            </TouchableOpacity>}
+            centerComponent={<View></View>}
+            rightComponent={<View></View>}
+            navigation={this.props.navigation}
           />
-          <View style={{ height: 20 }} />
 
-          <Button
-            title={'Next'}
-            titleStyle={[theme.pattern, { fontSize: 20, color: theme.textBlue }]}
-            buttonStyle={{ borderRadius: 20, width: 100, borderWidth: 2, borderColor: theme.primaryBlue, paddingVertical: 5 }}
-            type={'outline'}
-            onPress={() => { this.phoneNumber() }}
-          />
+          <View style={styles.container} >
+            <Text style={[theme.font, styles.title]}>Your Phone Number</Text>
+            <View style={{ height: 40 }} />
+
+            <PhoneInput
+              ref={(ref) => { this.phone = ref; }}
+              onPressFlag={this.onPressFlag}
+            />
+            <View style={{ height: 20 }} />
+
+            <Button
+              title={'Next'}
+              titleStyle={[theme.pattern, { fontSize: 20, color: theme.textBlue }]}
+              buttonStyle={{ borderRadius: 20, width: 100, borderWidth: 2, borderColor: theme.primaryBlue, paddingVertical: 5 }}
+              type={'outline'}
+              onPress={() => { this.phoneNumber() }}
+            />
+          </View>
+        </Animated.View>
+      );
+    } else if (this.state.loading) {
+      return (
+        <View style={styles.loading}>
+          <Bars size={20} color="#1976D2" />
         </View>
-      </Animated.View>
-    );
+      )
+    }
   }
 }
 
-export default connect(
-  state => {
-    return {};
-  },
-  {}
-)(YourPhoneNumber);
+
 
 
 

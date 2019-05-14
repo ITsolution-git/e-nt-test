@@ -1,7 +1,7 @@
 import React, { PureComponent, Fragment } from "react";
-import { Image, Text, TextInput, View, StyleSheet, TouchableOpacity, Keyboard, Animated, ScrollView, Dimensions } from "react-native";
+import { Image, Text, TextInput, View, StyleSheet, TouchableOpacity, Keyboard, Animated, ScrollView } from "react-native";
 import { connect } from "react-redux";
-
+import flamelink from 'flamelink';
 import { logo } from "./../../assests/assets";
 import { theme } from '../../themes';
 import EntreHeader from '../../components/layouts/EntreHeader';
@@ -11,13 +11,13 @@ import { Icon, Input, Button } from 'react-native-elements';
 import { UserDetails } from "./../../helperFunction/firebaseDocStore"
 import firebase from "firebase"
 import AnimatedLoader from "react-native-animated-loader";
+import { Bars, } from 'react-native-loader';
 
-import { Pulse } from "react-native-loader"
 
 // To hide logo image when user types
 const IMAGE_HEIGHT = 90
 const IMAGE_HEIGHT_SMALL = 0
-let DEVICE_HEIGHT = 0
+
 class Signup extends PureComponent {
 
   state = {
@@ -33,8 +33,6 @@ class Signup extends PureComponent {
     super(props);
     this.keyboardHeight = new Animated.Value(0); // 
     this.imageHeight = new Animated.Value(IMAGE_HEIGHT);
-    DEVICE_HEIGHT = Dimensions.get('window').height
-    console.log('THis is device Height', DEVICE_HEIGHT)
   }
 
   componentWillMount() {
@@ -84,7 +82,6 @@ class Signup extends PureComponent {
           await firebase.auth().createUserWithEmailAndPassword(email, password)
           const data = { fullName, email, username }
           await intializedUserClass.createNewUser(data)
-          this.setState({ loading: false })
           this.props.navigation.navigate('YourPhoneNumber', { username })
         } else if (usernameExsist) {
           this.setState({ errorMessage: "Username already exsist", loading: false })
@@ -218,7 +215,7 @@ class Signup extends PureComponent {
     } else if (this.state.loading) {
       return (
         <View style={styles.loading}>
-          <Pulse size={50} color="#1E88E5" />
+          <Bars size={20} color="#1976D2" />
         </View>
       )
     }
@@ -248,6 +245,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    height: '80%',
+    height: '100%',
   }
 });
