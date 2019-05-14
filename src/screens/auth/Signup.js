@@ -1,7 +1,5 @@
 import React, { PureComponent, Fragment } from "react";
 import { Image, Text, TextInput, View, StyleSheet, TouchableOpacity, Keyboard, Animated, ScrollView } from "react-native";
-import { connect } from "react-redux";
-import flamelink from 'flamelink';
 import { logo } from "./../../assests/assets";
 import { theme } from '../../themes';
 import EntreHeader from '../../components/layouts/EntreHeader';
@@ -10,7 +8,6 @@ import { Icon, Input, Button } from 'react-native-elements';
 //Firebase Authentication 
 import { UserDetails } from "./../../helperFunction/firebaseDocStore"
 import firebase from "firebase"
-import AnimatedLoader from "react-native-animated-loader";
 import { Bars, } from 'react-native-loader';
 
 
@@ -82,13 +79,15 @@ class Signup extends PureComponent {
           await firebase.auth().createUserWithEmailAndPassword(email, password)
           const data = { fullName, email, username }
           await intializedUserClass.createNewUser(data)
+          this.setState({ loading: false })
           this.props.navigation.navigate('YourPhoneNumber', { username })
         } else if (usernameExsist) {
           this.setState({ errorMessage: "Username already exsist", loading: false })
         }
       } catch (error) {
-        console.log(error)
+        console.log('Error in Creating user:', error)
         if (typeof error === 'string') this.setState({ errorMessage: error })
+        else if (error.message) this.setState({ errorMessage: error.message })
         else this.setState({ errorMessage: 'something went wrong' })
         if (this.state.loading) this.setState({ loading: false })
       }

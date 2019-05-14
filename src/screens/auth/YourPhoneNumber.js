@@ -1,7 +1,8 @@
+// TODO; OTP Verification 
+// TODO: Display errorMessage
+
 import React, { PureComponent, Fragment } from "react";
 import { Image, Text, TextInput, View, StyleSheet, TouchableOpacity, Keyboard, Animated } from "react-native";
-import { connect } from "react-redux";
-
 import { logo } from "./../../assests/assets";
 import { theme } from '../../themes';
 // import { login } from "./../../actions/loginSignup"
@@ -11,11 +12,6 @@ import { Icon, Input, Button } from 'react-native-elements';
 import PhoneInput from 'react-native-phone-input'
 import { UserDetails } from "./../../helperFunction/firebaseDocStore"
 import { Bars, } from 'react-native-loader';
-
-
-
-
-
 export default class YourPhoneNumber extends PureComponent {
   constructor(props) {
     super(props)
@@ -57,10 +53,8 @@ export default class YourPhoneNumber extends PureComponent {
   };
 
   phoneNumber = async () => {
-    // TODO: Phone Number validation
     const number = this.phone.state.formattedNumber
-    console.log(number)
-    if (number) {
+    if (number && typeof number === 'number') {
       const intializeUserClass = new UserDetails(this.username)
       this.setState({ loading: true })
       try {
@@ -70,10 +64,10 @@ export default class YourPhoneNumber extends PureComponent {
       } catch (error) {
         console.log('Error In Phone number Method:', error)
         if (typeof error === 'string') this.setState({ errorMessage: error })
-        else this.setState({ errorMessage: 'Missing Phone number' })
+        else this.setState({ errorMessage: 'We Encountered some problem storing your phone number' })
       }
     } else {
-      this.setState({ errorMessage: 'Missing Phone number' })
+      this.setState({ errorMessage: 'Missing Phone number or invalid phone number' })
     }
   }
 
@@ -126,10 +120,6 @@ export default class YourPhoneNumber extends PureComponent {
   }
 }
 
-
-
-
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -141,5 +131,11 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: 'bold',
     alignSelf: 'flex-start'
+  },
+  loading: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
   }
 });
