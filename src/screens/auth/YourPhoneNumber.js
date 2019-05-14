@@ -1,6 +1,6 @@
 // TODO; OTP Verification 
 // TODO: Display errorMessage
-
+// TODO: Check if phone number already exsist in database
 import React, { PureComponent, Fragment } from "react";
 import { Image, Text, TextInput, View, StyleSheet, TouchableOpacity, Keyboard, Animated } from "react-native";
 import { logo } from "./../../assests/assets";

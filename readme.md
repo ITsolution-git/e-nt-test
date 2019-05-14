@@ -34,13 +34,13 @@ Installation Instructions
 
 ## Errors 
 
-
-1. 
-
-If your recieve `Print: Entry, “:CFBundleIdentifier”, Does Not Exist` when doing react-native run-ios 
+### “:CFBundleIdentifier”
+1. If your recieve `Print: Entry, “:CFBundleIdentifier”, Does Not Exist` when doing react-native run-ios 
 see if you `GoogleService-Info.plist` in the correct location (or if exsist. 
 
-Solution 2: https://stackoverflow.com/questions/37461703/print-entry-cfbundleidentifier-does-not-exist
+You can get `GoogleService-Info.plist` from fb project.
+
+2. https://stackoverflow.com/questions/37461703/print-entry-cfbundleidentifier-does-not-exist
 
 
 
