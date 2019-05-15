@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
   statics: staticsReducer,
   people: peopleReducer,
   activities: activitiesReducer,
-  videos: videosReducer
+  videos: videosReducer,
 });
 
 export default rootReducer;
