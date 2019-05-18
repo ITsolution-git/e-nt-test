@@ -9,8 +9,5 @@ target 'entreClientwithoutExpo' do
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
 
-  pod 'lottie-ios', :path => '../node_modules/lottie-ios'
-
-  pod 'lottie-react-native', :path => '../node_modules/lottie-react-native'
 
 end
