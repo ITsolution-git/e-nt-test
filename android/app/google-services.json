@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1039898154596",
+    "firebase_url": "https://entre-test.firebaseio.com",
+    "project_id": "entre-test",
+    "storage_bucket": "entre-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1039898154596:android:923252432464d126",
+        "android_client_info": {
+          "package_name": "com.entreclientwithoutexpo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1039898154596-b439h0c91na109qgv5pmrb2gaj56n28r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYTVs-ThZkNyXBq9TsbtkIPzQ8Vx-_iGo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1039898154596-b439h0c91na109qgv5pmrb2gaj56n28r.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1039898154596-5aih4q4ffa2ci1ji7qmrjlqpalnsiaj2.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "app.entre"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
