@@ -9,7 +9,7 @@ import EntreHeader from '../../components/layouts/EntreHeader';
 import EntreButton from '../../components/elements/EntreButton';
 import { Icon, Input, Button } from 'react-native-elements';
 import firebase from "firebase"
-import console = require('console');
+
 
 const IMAGE_HEIGHT = 90;
 const IMAGE_HEIGHT_SMALL = 0;
