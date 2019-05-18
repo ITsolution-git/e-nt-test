@@ -9,19 +9,5 @@ target 'entreClientwithoutExpo' do
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
 
-  target 'entreClientwithoutExpo-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
-    pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
-
-    pod 'RNReanimated', :path => '../node_modules/react-native-reanimated'
-
-  end
-
-  target 'entreClientwithoutExpoTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
 end
 
