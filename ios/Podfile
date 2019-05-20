@@ -8,5 +8,4 @@ target 'entreClientwithoutExpo' do
   # Pods for entreClientwithoutExpo
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
-
 end

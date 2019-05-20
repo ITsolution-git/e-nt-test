@@ -16,10 +16,7 @@ const rootReducer = combineReducers({
   people: peopleReducer,
   activities: activitiesReducer,
   videos: videosReducer,
-<<<<<<< HEAD
-=======
   messages: messagesReducer
->>>>>>> backup
 });
 
 export default rootReducer;
