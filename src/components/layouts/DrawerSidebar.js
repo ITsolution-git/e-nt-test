@@ -80,18 +80,20 @@ export class DrawerSidebar extends Component {
 
 		return (
 			<SafeAreaView  style={{ flex: 1 }}>
-				<View style={styles.header}>
-					<Avatar
-						rounded
-						source={{ uri: profile.avatar }}
-						size={100}
-					/>
-					<View style={{height: 20}} />
+				{!!profile && 
+					<View style={styles.header}>
+						<Avatar
+							rounded
+							source={{ uri: profile.avatar }}
+							size={100}
+						/>
+						<View style={{height: 20}} />
 
-					<EntreText color='textWhite' size={30}>{profile.name}</EntreText>
-					<View style={{height: 10}} />
-					<EntreText color='#6C6F7D' size={14}>{profile.username}</EntreText>
-				</View>
+						<EntreText color='textWhite' size={30}>{profile.name}</EntreText>
+						<View style={{height: 10}} />
+						<EntreText color='#6C6F7D' size={14}>{profile.username}</EntreText>
+					</View>
+				}
 				<Image
 					source={profile_border}
 					style={{height: 5, width: '100%'}}
