@@ -57,7 +57,7 @@ class HomeScreen extends PureComponent {
   }
 
   handleContentPress = (post) => {
-    this.props.navigation.navigate('PostScreen');
+    this.props.navigation.navigate('PostScreen', { postId: post.id});
   }
 
   render() {

@@ -42,7 +42,7 @@ const createTab = (settings) => {
       swipeEnabled: true,
 
       // tabBarComponent: EntreTabbar,
-      initialRouteName: 'ProfileTab',
+      initialRouteName: 'HomeTab',
 
       tabBarOptions: {
         activeTintColor: '#000000',

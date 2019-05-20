@@ -22,7 +22,7 @@ export default class EntreHeader extends React.Component {
       </TouchableOpacity>;
     }
     if (!rightComponent) {
-      rightComponent = <TouchableOpacity>
+      rightComponent = <TouchableOpacity onPress={()=>navigation.navigate('MessageListScreen')}>
         <Icon
           type='material'
           name='mail'
