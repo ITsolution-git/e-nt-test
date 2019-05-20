@@ -26,13 +26,22 @@ const intialState = {
     ...person
   },{
     ...person,
-    id: 1
+    id: 1,
+
+    avatar: 'https://technext.github.io/Metronic-One-Page/theme/assets/onepage/img/people/img7-large.jpg',
+    name: 'Sandra Smith',
   },{
     ...person,
-    id: 2
+    id: 2,
+
+    avatar: 'http://keenthemes.com/preview/metronic/theme/assets/pages/img/avatars/team1.jpg',
+    name: 'Alex Martin',
   },{
     ...person,
-    id: 3
+    id: 3,
+
+    avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTC-X6AUoJkxsxSfnReHc_K_BCxu8rv6O8xUGgQfwoFovQ8xA9l',
+    name: 'Mike Pollack',
   }],
   person: person
 };

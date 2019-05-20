@@ -7,6 +7,7 @@ import SupportScreen from "./../screens/home/SupportScreen";
 import SettingsScreen from "./../screens/home/SettingsScreen";
 import TOSScreen from "./../screens/home/TOSScreen";
 import PrivacyPolicyScreen from "./../screens/home/PrivacyPolicyScreen";
+import MessageListScreen from "./../screens/home/MessageListScreen";
 
 export const homeStackNavigation = (defaultRoute) => createStackNavigator(
   {
@@ -27,6 +28,9 @@ export const homeStackNavigation = (defaultRoute) => createStackNavigator(
     },
     PrivacyPolicyScreen: {
       screen: PrivacyPolicyScreen
+    },
+    MessageListScreen: {
+      screen: MessageListScreen
     }
   },
   {

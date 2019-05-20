@@ -33,7 +33,8 @@ import {
 
 class PostScreen extends PureComponent {
   state = { 
-    replyMessage: ''
+    replyMessage: '',
+    postId: this.props.navigation.state.params.postId,
   }
 
   constructor(props) {
@@ -53,7 +54,10 @@ class PostScreen extends PureComponent {
   }
 
   _renderReplies = () => {
-    const { post } = this.props;
+    const { posts } = this.props;
+    const { postId } = this.state;
+
+    const post = posts[postId || 0];
 
     return post.comments.map(comment => {
       return (
@@ -103,8 +107,10 @@ class PostScreen extends PureComponent {
   }
 
   render() {
-    const { post, profile } = this.props;
+    const { posts, profile } = this.props;
+    const { postId } = this.state;
 
+    const post = posts[postId || 0];
     return (  
       <View style={{ paddingBottom: this.keyboardHeight, flex: 1 }}>
         <EntreHeader
@@ -139,6 +145,7 @@ class PostScreen extends PureComponent {
 export default connect(state => {
     return {
       post: state.posts.post,
+      posts: state.posts.posts,
       profile: state.profile.profileData
     };
   },

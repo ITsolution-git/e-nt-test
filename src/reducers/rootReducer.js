@@ -6,6 +6,7 @@ import staticsReducer from "./statics.js";
 import peopleReducer from "./people.js";
 import activitiesReducer from "./activities.js";
 import videosReducer from "./videos.js";
+import messagesReducer from "./messages.js";
 
 const rootReducer = combineReducers({
   profile: profileReducer,
@@ -15,6 +16,10 @@ const rootReducer = combineReducers({
   people: peopleReducer,
   activities: activitiesReducer,
   videos: videosReducer,
+<<<<<<< HEAD
+=======
+  messages: messagesReducer
+>>>>>>> backup
 });
 
 export default rootReducer;
