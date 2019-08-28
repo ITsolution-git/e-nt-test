@@ -1,8 +1,8 @@
-import React, { PureComponent } from "react";
-import { Text, View, Button, StyleSheet, TouchableOpacity } from "react-native";
-import { connect } from "react-redux";
+import React, { PureComponent } from 'react';
+import { Text, View, Button, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { connect } from 'react-redux';
 
-import { logo } from "./../../assests/assets";
+import { logo } from './../../assests/assets';
 import { theme } from '../../themes';
 
 
@@ -16,7 +16,7 @@ export default class EntreButton extends React.Component {
   static COLOR_WHITE = 2;
 
   render() {
-    const { btnStyle, textStyle, onPress, btnType, btnText, colorType } = this.props;
+    const { btnStyle, textStyle, onPress, btnType, btnText, colorType, loading } = this.props;
 
     let subStyle = {
       width: 300,
@@ -93,7 +93,10 @@ export default class EntreButton extends React.Component {
 
     return (
       <TouchableOpacity style={[styles.container, subStyle, btnStyle]} onPress={onPress}>
-        <Text style={[textSubStyle, textStyle]}>{btnText}</Text>
+        { loading 
+          ? <ActivityIndicator color={textSubStyle.color}/>
+          : <Text style={[textSubStyle, textStyle]}>{btnText}</Text>
+        }
       </TouchableOpacity>
     );
   }

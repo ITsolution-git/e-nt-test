@@ -1,5 +1,4 @@
-import {
-} from "../config/type.js";
+
 const person = {
   id: 0,
   avatar: 'https://mdbootstrap.com/img/Photos/Avatars/img%20(9).jpg',

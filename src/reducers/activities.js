@@ -1,5 +1,4 @@
-import {
-} from "../config/type.js";
+
 const ACTIVITY_TYPES = [
   'follow_request',
   'liked_post'

@@ -1,5 +1,3 @@
-import {
-} from "../config/type.js";
 
 const message = {
   id: 0,

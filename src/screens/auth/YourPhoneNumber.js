@@ -1,26 +1,34 @@
 // TODO; OTP Verification 
 // TODO: Display errorMessage
 // TODO: Check if phone number already exsist in database
+
 import React, { PureComponent, Fragment } from "react";
 import { Image, Text, TextInput, View, StyleSheet, TouchableOpacity, Keyboard, Animated } from "react-native";
 import { logo } from "./../../assests/assets";
 import { theme } from '../../themes';
-// import { login } from "./../../actions/loginSignup"
+
+
 import EntreHeader from '../../components/layouts/EntreHeader';
-import EntreButton from '../../components/elements/EntreButton';
+import {
+  EntreButton,
+  EntreErrorMessage
+} from '../../components/elements';
 import { Icon, Input, Button } from 'react-native-elements';
 import PhoneInput from 'react-native-phone-input'
-import { UserDetails } from "./../../helperFunction/firebaseDocStore"
 import { Bars, } from 'react-native-loader';
-export default class YourPhoneNumber extends PureComponent {
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { updateFBUser, updatePhoneNumber } from '../../actions/profile';
+
+class YourPhoneNumber extends PureComponent {
   constructor(props) {
     super(props)
-    this.username = this.props.navigation.state.params.username
     this.keyboardHeight = new Animated.Value(0);
   }
   state = {
     errorMessage: null,
-    phoneNumber: null,
+    phoneNumber: '123',
     loading: false
   }
 
@@ -52,19 +60,24 @@ export default class YourPhoneNumber extends PureComponent {
     ]).start();
   };
 
-  phoneNumber = async () => {
-    const number = this.phone.state.formattedNumber
-    if (number && typeof number === 'number') {
-      const intializeUserClass = new UserDetails(this.username)
-      this.setState({ loading: true })
+  submitPhoneNumber = async () => {
+    const number = this.phone.state.formattedNumber;
+    
+    if (number) {
+      this.setState({ loading: true });
+
       try {
-        await intializeUserClass.updateUserData({ phoneNumber: number })
-        this.setState({ loading: false })
-        this.props.navigation.navigate('onboarding')
+        // await this.props.updatePhoneNumber(number);
+
+        this.setState({ loading: false });
+        this.props.navigation.navigate('onboarding');
       } catch (error) {
-        console.log('Error In Phone number Method:', error)
-        if (typeof error === 'string') this.setState({ errorMessage: error })
-        else this.setState({ errorMessage: 'We Encountered some problem storing your phone number' })
+        if (typeof error === 'string') {
+          this.setState({ errorMessage: error });
+        } else {
+          this.setState({ errorMessage: 'We Encountered some problem storing your phone number' });
+        }
+        this.setState({ loading: false })
       }
     } else {
       this.setState({ errorMessage: 'Missing Phone number or invalid phone number' })
@@ -74,49 +87,44 @@ export default class YourPhoneNumber extends PureComponent {
 
 
   render() {
-    if (!this.state.loading) {
-      return (
-        <Animated.View style={{ paddingBottom: this.keyboardHeight, flex: 1 }}>
-          <EntreHeader
-            leftComponent={<TouchableOpacity
-              style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}
-              onPress={() => this.props.navigation.goBack()}
-            >
-              <Icon size={30} name='chevron-left' />
-              <Text>{'back'}</Text>
-            </TouchableOpacity>}
-            centerComponent={<View></View>}
-            rightComponent={<View></View>}
-            navigation={this.props.navigation}
+    const { loading, errorMessage } = this.state;
+    return (
+      <Animated.View style={{ paddingBottom: this.keyboardHeight, flex: 1 }}>
+        <EntreHeader
+          leftComponent={<TouchableOpacity
+            style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}
+            onPress={() => this.props.navigation.goBack()}
+          >
+            <Icon size={30} name='chevron-left' />
+            <Text>{'back'}</Text>
+          </TouchableOpacity>}
+          centerComponent={<View></View>}
+          rightComponent={<View></View>}
+          navigation={this.props.navigation}
+        />
+
+        <View style={styles.container} >
+          <Text style={[theme.font, styles.title]}>Your Phone Number</Text>
+          <View style={{ height: 40 }} />
+
+          <EntreErrorMessage message={errorMessage} />
+          <PhoneInput
+            ref={(ref) => { this.phone = ref; }}
+            onPressFlag={this.onPressFlag}
           />
+          <View style={{ height: 20 }} />
 
-          <View style={styles.container} >
-            <Text style={[theme.font, styles.title]}>Your Phone Number</Text>
-            <View style={{ height: 40 }} />
-
-            <PhoneInput
-              ref={(ref) => { this.phone = ref; }}
-              onPressFlag={this.onPressFlag}
-            />
-            <View style={{ height: 20 }} />
-
-            <Button
-              title={'Next'}
-              titleStyle={[theme.pattern, { fontSize: 20, color: theme.textBlue }]}
-              buttonStyle={{ borderRadius: 20, width: 100, borderWidth: 2, borderColor: theme.primaryBlue, paddingVertical: 5 }}
-              type={'outline'}
-              onPress={() => { this.phoneNumber() }}
-            />
-          </View>
-        </Animated.View>
-      );
-    } else if (this.state.loading) {
-      return (
-        <View style={styles.loading}>
-          <Bars size={20} color="#1976D2" />
+          <Button
+            title={'Next'}
+            titleStyle={[theme.pattern, { fontSize: 20, color: theme.textBlue }]}
+            buttonStyle={{ borderRadius: 20, width: 100, borderWidth: 2, borderColor: theme.primaryBlue, paddingVertical: 5 }}
+            type={'outline'}
+            onPress={() => { this.submitPhoneNumber() }}
+            loading={loading}
+          />
         </View>
-      )
-    }
+      </Animated.View>
+    );
   }
 }
 
@@ -139,3 +147,25 @@ const styles = StyleSheet.create({
     height: '100%',
   }
 });
+
+
+const mapStateToProps = state => {
+  return {
+  }
+};
+
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators(
+    {
+      updateFBUser,
+      updatePhoneNumber
+    },
+    dispatch,
+  ),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(YourPhoneNumber);
+

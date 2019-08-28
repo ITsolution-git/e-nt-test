@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import profileReducer from "./profileInfo.js";
+import profileReducer from "./profile.js";
 import onboardingReducer from "./onboarding.js";
 import postsReducer from "./posts.js";
 import staticsReducer from "./statics.js";

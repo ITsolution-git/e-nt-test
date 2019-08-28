@@ -1,5 +1,4 @@
-import {
-} from "../config/type.js";
+
 
 const intialState = {
   faqs: [{

@@ -7,4 +7,5 @@ export {default as EntreReply} from './EntreReply';
 export {default as EntrePersonItem} from './EntrePersonItem';
 export {default as ProfileField} from './ProfileField';
 export {default as EntreVideo} from './EntreVideo';
+export {default as EntreErrorMessage} from './EntreErrorMessage';
 

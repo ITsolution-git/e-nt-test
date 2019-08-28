@@ -1,14 +1,17 @@
-import React, { PureComponent, Fragment } from "react";
-import { Image, Text, TextInput, View, StyleSheet, TouchableOpacity, Keyboard, Animated } from "react-native";
-import { connect } from "react-redux";
+import React, { PureComponent, Fragment } from 'react';
+import { Image, Text, TextInput, View, StyleSheet, TouchableOpacity, Keyboard, Animated } from 'react-native';
+import { connect } from 'react-redux';
 
-import { logo } from "./../../assests/assets";
+import { logo } from './../../assests/assets';
 import { theme } from '../../themes';
-// import { login } from "./../../actions/loginSignup"
+// import { login } from './../../actions/loginSignup'
 import EntreHeader from '../../components/layouts/EntreHeader';
-import EntreButton from '../../components/elements/EntreButton';
+import {
+  EntreButton,
+  EntreErrorMessage
+} from '../../components/elements';
 import { Icon, Input, Button } from 'react-native-elements';
-import firebase from "firebase"
+import firebase from 'react-native-firebase'
 
 
 const IMAGE_HEIGHT = 90;
@@ -17,10 +20,11 @@ const IMAGE_HEIGHT_SMALL = 0;
 class Login extends PureComponent {
 
   state = {
-    email: null,
-    password: null,
+    email: 'test1@gmail.com',
+    password: '123password',
     errorMessage: null,
-    loading: false
+    loading: false,
+    errors: {}
   }
 
   constructor(props) {
@@ -66,30 +70,59 @@ class Login extends PureComponent {
     ]).start();
   };
 
-  handleLogin = async () => {
-    const { email, password } = this.state
-    if (email && password) {
-      try {
-        this.setState({ loading: true })
-        const firebaseLogin = await firebase.auth().signInWithEmailAndPassword(email, password)
-        this.setState({ loading: false })
-        // this.props.navigation.navigate('drawer')
-        // TODO: Store user is redux state 
-      } catch (error) {
-        console.log('Error in Creating user:', error)
-        if (typeof error === 'string') this.setState({ errorMessage: error })
-        else if (error.message) this.setState({ errorMessage: error.message })
-        else this.setState({ errorMessage: 'something went wrong' })
-        if (this.state.loading) this.setState({ loading: false })
-      }
+  collectError = (field) => {
+    if (Array.isArray(this.state.errors[field]) && this.state.errors[field].length > 0) {
+      return this.state.errors[field][0];
     } else {
-      this.setState({ errorMessage: "Missing username or password" })
+      return '';
+    }
+  }
+
+  validate = async () => {
+    let valid = true;
+    let errors = {};
+    const { email, password } = this.state
+
+    if (!email) {
+      errors['email'] = ['Email is required'];
+      valid = false;
+    }
+    if (!password) {
+      errors['password'] = ['Password is required'];
+      valid = false;
+    }
+    // TODO: check id duplication status
+    this.setState({ valid, errors });
+    return valid;
+  }
+
+
+  handleLogin = async () => {
+    const { email, password } = this.state;
+
+    if (!await this.validate()) {
+      return ;
+    }
+
+    try {
+      this.setState({ loading: true });
+      const firebaseLogin = await firebase.auth().signInWithEmailAndPassword(email, password);
+      this.setState({ loading: false });
+    } catch (error) {
+      if (typeof error === 'string') {
+        this.setState({ errorMessage: error });
+      } else if (error.message) {
+        this.setState({ errorMessage: error.message });
+      } else {
+        this.setState({ errorMessage: 'Something went wrong' });
+      }
+      this.setState({ loading: false })
     }
 
   }
 
   render() {
-    const { email, password } = this.state;
+    const { email, password, errorMessage, loading } = this.state;
 
     return (
       <Animated.View style={{ paddingBottom: this.keyboardHeight, flex: 1 }}>
@@ -110,11 +143,12 @@ class Login extends PureComponent {
           <Animated.Image style={[styles.logo, { height: this.imageHeight }]} source={logo} />
           <View style={{ height: 20 }} />
 
+          <EntreErrorMessage message={errorMessage} />
           <Input
             inputStyle={[theme.font, { fontSize: 15 }]}
             placeholder='Email'
             errorStyle={{ color: 'red' }}
-            errorMessage={''}
+            errorMessage={this.collectError('email')}
             value={email}
             onChangeText={email => this.setState({ email })}
             autoCapitalize='none'
@@ -126,7 +160,7 @@ class Login extends PureComponent {
             inputStyle={[theme.font, { fontSize: 15 }]}
             placeholder='Password'
             errorStyle={{ color: 'red' }}
-            errorMessage={''}
+            errorMessage={this.collectError('password')}
             value={password}
             onChangeText={password => this.setState({ password })}
             autoCapitalize='none'
@@ -155,6 +189,7 @@ class Login extends PureComponent {
             btnType={EntreButton.TYPE_LARGE_ROUND}
             colorType={EntreButton.COLOR_BLUE}
             btnText={'Log in'}
+            loading={loading}
           />
           <View style={{ height: 20 }} />
 

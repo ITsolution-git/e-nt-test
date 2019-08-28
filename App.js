@@ -1,21 +1,10 @@
-import React, { Component } from "react";
-import { View, Text } from "react-native";
-import { connect } from "react-redux";
-import { loginSession } from "./src/actions/loginSignup";
-import AppNavigator from "./src/routes/routes";
-import firebase from "./src/config/firebase"
+import React, { Component } from 'react';
+import { View, Text } from 'react-native';
+import { connect } from 'react-redux';
+import AppNavigator from './src/routes/routes';
+
 class App extends Component {
   async componentDidMount() {
-    // try {
-    //   firebase.auth().onAuthStateChanged(user => {
-    //     if (user) {
-    //       console.log(user);
-    //       this.props.loginSession(user);
-    //     }
-    //   });
-    // } catch (error) {
-    //   console.log(error);
-    // }
   }
 
   render() {
@@ -27,13 +16,4 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    isAuthenticated: state.profile.isAuthenticated
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  { loginSession }
-)(App);
+export default App;
