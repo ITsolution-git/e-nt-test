@@ -4,7 +4,9 @@ import {
 
 const intialState = {
   fbUser: null,
-  fbToken: ''
+  fbToken: '',
+  profile: {},
+  posts: []
 };
 
 export default function(state = intialState, action) {
@@ -26,6 +28,18 @@ export default function(state = intialState, action) {
         ...state,
         fbToken: action.payload
       };
+
+    case PROFILE.SET_PROFILE:
+      return {
+        ...state,
+        profile: action.payload
+      }
+
+    case PROFILE.SET_MY_POSTS:
+      return {
+        ...state,
+        posts: action.payload
+      }
 
     default:
       return state;

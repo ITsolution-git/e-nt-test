@@ -78,7 +78,36 @@ export const logout = () => {
 
 
 export const getProfile = () => {
-  return (dispatch) => {
-    return api.get('user');
+  return async (dispatch) => {
+    const response = await api.get('profile')
+
+    dispatch({
+      type: PROFILE.SET_PROFILE,
+      payload: response.data
+    });
+  };
+};
+
+
+export const getFollowers = () => {
+  return async (dispatch) => {
+    const response = await api.get('user/followers')
+    // return {
+    //   dispatch: PROFILE.SET_PROFILE,
+    //   payload: response.data
+    // };
+    return response.data
+  };
+};
+
+export const getMyPosts = () => {
+  return async (dispatch) => {
+    const response = await api.get('user/posts')
+
+    dispatch({
+      type: PROFILE.SET_MY_POSTS,
+      payload: response.data
+    });
+    return response.data
   };
 };

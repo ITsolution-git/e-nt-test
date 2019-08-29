@@ -35,7 +35,7 @@ export default class EntrePost extends React.Component {
 		if (view == 'detailed') {
 			return (
 				<Image
-					source={{ uri: post.image }}
+					source={{ uri: post.imageUrl }}
 					style={[styles.image, { height: 400 }]}
 					resizeMode="contain"
 				/>
@@ -44,7 +44,7 @@ export default class EntrePost extends React.Component {
 
 			return (
 				<Image
-					source={{ uri: post.image }}
+					source={{ uri: post.imageUrl }}
 					style={styles.image}
 				/>
 			);
@@ -110,7 +110,7 @@ export default class EntrePost extends React.Component {
 					color='textGrey1' 
 					size={14}
 					numberOfLines={ view === 'compact' ? 1 : null }
-				>{post.content}</EntreText>
+				>{post.description}</EntreText>
 				
 				<View style={{ height: 10 }} />
 

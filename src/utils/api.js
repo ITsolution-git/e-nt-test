@@ -17,8 +17,10 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
 	(conf, request) => {
+		console.log(conf.url)
 		const token = store.getState().profile.fbToken;
 		conf.headers.common['Authorization'] = `Bearer ${token}`;
+		return conf;
 	},
 	(error) => Promise.reject(error)
 );
@@ -26,15 +28,15 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
 	(resp) => {
-		console.log(resp);
 		return resp;
 	}, 
 	(error) => {
-	if (error.response) {
+		if (error.response) {
 
+		}
+		throw error;
 	}
-	throw error;
-})
+)
 
 export const api = {
 	axiosInstance,
@@ -42,7 +44,7 @@ export const api = {
 		return await axiosInstance.get(`${BASE_URL}/${resource}`)
 	},
 	async post (resource, body) {
-   return await axiosInstance.post(`${BASE_URL}/${resource}`, body)
+   		return await axiosInstance.post(`${BASE_URL}/${resource}`, body)
  	},
  	async patch (resource, body) {
   	return await axiosInstance.patch(`${BASE_URL}/${resource}`, body)

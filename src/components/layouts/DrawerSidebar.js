@@ -92,7 +92,7 @@ export class DrawerSidebar extends Component {
             />
             <View style={{height: 20}} />
 
-            <EntreText color='textWhite' size={30}>{profile.name}</EntreText>
+            <EntreText color='textWhite' size={30}>{profile.full_name}</EntreText>
             <View style={{height: 10}} />
             <EntreText color='#6C6F7D' size={14}>{profile.username}</EntreText>
           </View>
@@ -156,7 +156,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
-  profile: state.profile.profileData
+  profile: state.profile.profile
 });
 
 export default connect(

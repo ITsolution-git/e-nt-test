@@ -17,10 +17,11 @@ class AuthChecker extends React.Component {
     	if (user) {
     		this.props.setFBUser(user);
     		const token = await user.getIdToken();
-    		
     		this.props.setToken(token);
+        await Promise.all([
+          this.props.getProfile()
+        ])
     	}
-    	this.props.getProfile();
     	if (user) {
     		// if (!user.phoneNumber) {		
     		// 	this.props.navigation.navigate('YourPhoneNumber');

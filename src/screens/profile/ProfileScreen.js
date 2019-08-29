@@ -1,6 +1,8 @@
 import React, { PureComponent, Fragment } from "react";
 import { Image, Text, TextInput, View, StyleSheet, TouchableOpacity, Keyboard, Animated, Dimensions, ScrollView } from "react-native";
 import { connect } from "react-redux";
+import { bindActionCreators } from 'redux';
+import { getFollowers, getMyPosts } from '../../actions/profile';
 
 import { 
   Icon, 
@@ -40,11 +42,24 @@ class ActivityScreen extends PureComponent {
       { key: 'experience', title: 'Experience' },
       { key: 'posts', title: 'Posts' }
     ],
-    showEditModal: false
+    showEditModal: false,
+    followers: []
   }
 
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    this.loadData();
+  }
+
+  loadData = async () => {
+    const [followers, myPosts] = await Promise.all([
+      this.props.getFollowers(),
+      this.props.getMyPosts()
+    ]);
+    this.setState({ followers });
   }
 
   _renderPostsTab = () => {
@@ -58,14 +73,14 @@ class ActivityScreen extends PureComponent {
   }
 
   _renderExperienceTab = () => {
-    const { person } = this.props;
+    const { profile } = this.props;
 
     return (
       <ScrollView style={styles.experience}>
         <View style={styles.experienceSection}>
           <EntreText h4 bold>Bio</EntreText>
           <View style={{height: 5}} />
-          <EntreText >{person.bio}</EntreText>
+          <EntreText >{profile.bio}</EntreText>
         </View>
 
         <View style={{height: 20}} />
@@ -74,7 +89,7 @@ class ActivityScreen extends PureComponent {
           <EntreText h4 bold>Skills</EntreText>
           <View style={{height: 5}} />
           <TagInput
-            value={person.tags}
+            value={profile.skills}
             labelExtractor={(tag) => tag}
             onChange={(tags) => this.setState({ tags })}
             onChangeText={(text) => this.setState({ text })}
@@ -107,8 +122,9 @@ class ActivityScreen extends PureComponent {
   }
 
   render() {
-    const { person } = this.props;
-    const { showEditModal } = this.state;
+    const { profile } = this.props;
+
+    const { showEditModal, followers } = this.state;
     const isEditable = true;
 
     return (  
@@ -121,7 +137,7 @@ class ActivityScreen extends PureComponent {
           <View style={styles.header}>
             <EntreAvatar
               source={{
-                uri: person.avatar
+                uri: profile.avatar
               }}
               rounded
               size={100}
@@ -130,9 +146,9 @@ class ActivityScreen extends PureComponent {
             <View style={{width: 10}} />
             <View style={{flex: 1, justifyContent: 'space-between'}}> 
               <View>
-                <EntreText h2 bold>{person.name}</EntreText>
+                <EntreText h2 bold>{profile.full_name}</EntreText>
                 <View style={{height: 10}} />
-                <EntreText h4 color={'textGrey'}>{person.title}</EntreText>
+                <EntreText h4 color={'textGrey'}>{profile.title}</EntreText>
               </View>
 
               <View style={{flexDirection: 'row', justifyContent: 'flex-end'}}>
@@ -173,12 +189,12 @@ class ActivityScreen extends PureComponent {
 
           <View style={styles.numbers}>
             <View style={[styles.numberSection, { borderRightWidth: 0.5 }]}>
-              <EntreText h1 bold>{person.level}</EntreText>
+              <EntreText h1 bold>{profile.level}</EntreText>
               <View style={{height: 5}} />
               <EntreText h4 color={'textGrey'}>LEVEL</EntreText>
             </View>
             <View style={[styles.numberSection, { borderRightWidth: 0.5 }]}>
-              <EntreText h1 bold>{person.point}</EntreText>
+              <EntreText h1 bold>{profile.points}</EntreText>
               <View style={{height: 5}} />
               <EntreText h4 color={'textGrey'}>POINTS</EntreText>
             </View>
@@ -186,7 +202,7 @@ class ActivityScreen extends PureComponent {
               style={[styles.numberSection, { borderRightWidth: 0 }]}
               onPress={()=>this.props.navigation.navigate('FollowersScreen')}
             >
-              <EntreText h1 bold>{person.followerCount}</EntreText>
+              <EntreText h1 bold>{followers.length}</EntreText>
               <View style={{height: 5}} />
               <EntreText h4 color={'textGrey'}>FOLLOWERS</EntreText>
             </TouchableOpacity>
@@ -242,15 +258,29 @@ class ActivityScreen extends PureComponent {
   }
 }
 
-export default connect(state => {
+const mapStateToProps = state => {
   return {
     person: state.people.person,
     posts: state.posts.posts,
-  };
-},
-  {}
-)(ActivityScreen);
+    profile: state.profile.profile,
+    myPosts: state.profile.posts
+  }
+};
 
+const mapDispatchToProps = dispatch => ({
+  ...bindActionCreators(
+    {
+      getFollowers,
+      getMyPosts
+    },
+    dispatch,
+  ),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ActivityScreen);
 
 
 const styles = StyleSheet.create({
