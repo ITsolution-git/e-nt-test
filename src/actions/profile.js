@@ -45,8 +45,19 @@ export const updateFBUser = info => {
 export const updatePhoneNumber = number => {
   return (dispatch) => {
     // const credential = fireabse.auth.Phone
-    return firebase.auth().currentUser
-      .updatePhoneNumber(number)
+    // return firebase.auth().currentUser
+    //   .updatePhoneNumber(number)
+    //   .then(() => {
+    //     return {
+    //       dispatch: PROFILE.SET_FB_USER,
+    //       payload: firebase.auth().currentUser._user
+    //     };
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //     throw error;
+    //   });
+    return api.put(`user/profile`, {})
       .then(() => {
         return {
           dispatch: PROFILE.SET_FB_USER,
@@ -85,6 +96,7 @@ export const getProfile = () => {
       type: PROFILE.SET_PROFILE,
       payload: response.data
     });
+    return response.data;
   };
 };
 

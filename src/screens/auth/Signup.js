@@ -18,6 +18,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setFBUser } from '../../actions/profile';
 
+import { api } from '../../utils/api';
 // To hide logo image when user types
 const IMAGE_HEIGHT = 90
 const IMAGE_HEIGHT_SMALL = 0
@@ -112,8 +113,27 @@ class Signup extends PureComponent {
 
     this.setState({ loading: true })
     try {
+      const resp = await api.get(`user/check-username?username=${username}`)
+      // if (resp.data) {
+        
+      // }
       await firebase.auth().createUserWithEmailAndPassword(email, password);
       this.props.setFBUser(firebase.auth().currentUser._user);
+      
+      const user = firebase.auth().currentUser;
+      await user.updateProfile({
+        displayName: fullName
+      });
+      const token = await user.getIdToken();
+
+      const axiosResp = await api.post(`user/register`, {
+        displayName: fullName,
+        email: email,
+        username: username,
+        idToken: token
+      });
+      console.log(axiosResp);
+
       this.setState({ loading: false });
       this.props.navigation.navigate('YourPhoneNumber')
     } catch (error) {
@@ -139,7 +159,7 @@ class Signup extends PureComponent {
   }
 
   render() {
-    const { email, password, fullName, username, loading } = this.state;
+    const { email, password, fullName, username, loading, errorMessage } = this.state;
 
     return (
       // Animated View Component for Animations
