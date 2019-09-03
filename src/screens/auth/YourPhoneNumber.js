@@ -19,7 +19,7 @@ import { Bars, } from 'react-native-loader';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { updateFBUser, updatePhoneNumber } from '../../actions/profile';
+import { updateFBUser, updateProfile } from '../../actions/profile';
 
 class YourPhoneNumber extends PureComponent {
   constructor(props) {
@@ -67,7 +67,9 @@ class YourPhoneNumber extends PureComponent {
       this.setState({ loading: true });
 
       try {
-        // await this.props.updatePhoneNumber(number);
+        await this.props.updateProfile({
+          phoneNumber: number
+        });
 
         this.setState({ loading: false });
         this.props.navigation.navigate('onboarding');
@@ -75,7 +77,7 @@ class YourPhoneNumber extends PureComponent {
         if (typeof error === 'string') {
           this.setState({ errorMessage: error });
         } else {
-          this.setState({ errorMessage: 'We Encountered some problem storing your phone number' });
+          this.setState({ errorMessage: 'We encountered some problem storing your phone number' });
         }
         this.setState({ loading: false })
       }
@@ -158,7 +160,7 @@ const mapDispatchToProps = dispatch => ({
   ...bindActionCreators(
     {
       updateFBUser,
-      updatePhoneNumber
+      updateProfile
     },
     dispatch,
   ),

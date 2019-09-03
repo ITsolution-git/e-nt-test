@@ -17,8 +17,11 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
 	(conf, request) => {
-		console.log(conf.url)
 		const token = store.getState().profile.fbToken;
+		console.log('---------------');
+		console.log(conf.url);
+		console.log(token);
+		console.log('---------------');
 		conf.headers.common['Authorization'] = `Bearer ${token}`;
 		return conf;
 	},
@@ -32,7 +35,7 @@ axiosInstance.interceptors.response.use(
 	}, 
 	(error) => {
 		if (error.response) {
-
+			console.log(error.response)
 		}
 		throw error;
 	}
@@ -50,10 +53,10 @@ export const api = {
   	return await axiosInstance.patch(`${BASE_URL}/${resource}`, body)
  	},
  	async put (resource, body) {
-  	return await axiosInstance.patch(`${BASE_URL}/${resource}`, body)
+  	return await axiosInstance.put(`${BASE_URL}/${resource}`, body)
  	},
  	async delete (resource, body) {
-  	return await axiosInstance.patch(`${BASE_URL}/${resource}`, body)
+  	return await axiosInstance.delete(`${BASE_URL}/${resource}`, body)
  	},
  	async upload (resource, body) {
    return await axiosInstance.post(`${BASE_URL}/${resource}`, body, {

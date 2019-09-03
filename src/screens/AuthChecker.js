@@ -13,7 +13,7 @@ class AuthChecker extends React.Component {
 
   }
   componentWillMount() {
-    firebase.auth().onAuthStateChanged(async (user) => {
+    const unsubscribe = firebase.auth().onAuthStateChanged(async (user) => {
       let profile = null;
 
     	if (user) {
@@ -23,17 +23,17 @@ class AuthChecker extends React.Component {
         await Promise.all([
           this.props.getProfile()
         ]).then(res => {
-          profile = res[0]
+          profile = res[0];
         })
     	}
-      console.log(profile);
 
-    	if (profile) {
-    		// if (!user.phoneNumber) {
-    		// 	this.props.navigation.navigate('YourPhoneNumber');
-    		// } else {
+      console.log(profile);
+    	if (profile && !this.props.registering) {
+    		if (!profile.phoneNumber) {
+    			this.props.navigation.navigate('YourPhoneNumber');
+    		} else {
     			this.props.navigation.navigate('drawer');
-    		// }
+    		}
     	} else {
       	this.props.navigation.navigate('Landing');
     	}
@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   return {
     isAuthenticated: state.profile.isAuthenticated,
+    registering: state.profile.registering
   }
 };
 

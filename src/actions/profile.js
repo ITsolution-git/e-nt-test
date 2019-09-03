@@ -71,6 +71,35 @@ export const updatePhoneNumber = number => {
   };
 };
 
+export const updateProfile = updateInfo => {
+  return (dispatch, getState) => {
+    const profile = getState().profile.profile
+    const userId = !profile ? '': profile.persistenceId;
+    return api.put(`profile/${userId}`, updateInfo)
+      .then(() => {
+        return dispatch({
+          type: PROFILE.SET_PROFILE,
+          payload: {
+            ...profile,
+            ...updateInfo
+          }
+        });
+      })
+      .catch(error => {
+        throw error;
+      });
+  };
+};
+
+export const setRegistering = (val) => {
+  return (dispatch) => {
+    dispatch({
+      type: PROFILE.SET_REGISTERING,
+      payload: val
+    });
+  };
+};
+
 export const logout = () => {
   return (dispatch) => {
     firebase.auth()

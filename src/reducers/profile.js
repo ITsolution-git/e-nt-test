@@ -6,7 +6,8 @@ const intialState = {
   fbUser: null,
   fbToken: '',
   profile: {},
-  posts: []
+  posts: [],
+  registering: false
 };
 
 export default function(state = intialState, action) {
@@ -39,6 +40,12 @@ export default function(state = intialState, action) {
       return {
         ...state,
         posts: action.payload
+      }
+
+    case PROFILE.SET_REGISTERING:
+      return {
+        ...state,
+        registering: action.payload
       }
 
     default:

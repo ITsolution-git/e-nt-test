@@ -16,7 +16,7 @@ import { Bars, } from 'react-native-loader';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { setFBUser } from '../../actions/profile';
+import { setFBUser, setRegistering, getProfile } from '../../actions/profile';
 
 import { api } from '../../utils/api';
 // To hide logo image when user types
@@ -117,6 +117,7 @@ class Signup extends PureComponent {
       // if (resp.data) {
         
       // }
+      this.props.setRegistering(true);
       await firebase.auth().createUserWithEmailAndPassword(email, password);
       this.props.setFBUser(firebase.auth().currentUser._user);
       
@@ -135,6 +136,8 @@ class Signup extends PureComponent {
       console.log(axiosResp);
 
       this.setState({ loading: false });
+      this.props.setRegistering(false);
+      await this.props.getProfile();
       this.props.navigation.navigate('YourPhoneNumber')
     } catch (error) {
       console.log('Error in Creating user:', error);
@@ -147,6 +150,7 @@ class Signup extends PureComponent {
         this.setState({ errorMessage: 'Something went wrong' });
       }
       this.setState({ loading: false });
+      this.props.setRegistering(false);
     }
   }
 
@@ -280,7 +284,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   ...bindActionCreators(
     {
-      setFBUser
+      setFBUser,
+      setRegistering,
+      getProfile
     },
     dispatch,
   ),
